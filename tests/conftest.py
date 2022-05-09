@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, database_exists
 
 from app.main import app
-from datamodels.models import Language
+from datamodels.models import Category, Language
 from services.database import Base, get_db
 
 logger = logging.getLogger('fixtures')
@@ -70,30 +70,40 @@ def client(db):
 
 # DB fixtures ###
 @pytest.fixture(scope="session")
-def create_language(db):
+def created_language(db):
 
     session = db
 
-    en_lan = Language(
-        id=1,
-        name='English',
-        code='EN'
-    )
+    en_lan = Language(id=1, name='English', code='EN')
     session.add(en_lan)
     session.commit()
 
-    de_lan = Language(
-        id=2,
-        name='German',
-        code='AR'
-    )
+    de_lan = Language(id=2, name='German', code='AR')
     session.add(de_lan)
     session.commit()
 
-    es_lan = Language(
-        id=3,
-        name='Spanish',
-        code='ES'
-    )
+    es_lan = Language(id=3, name='Spanish', code='ES')
     session.add(es_lan)
     session.commit()
+
+    return (en_lan, de_lan, es_lan)
+
+
+@pytest.fixture(scope="session")
+def created_category(db):
+
+    session = db
+
+    verb = Category(id=1, name='Verb')
+    session.add(verb)
+    session.commit()
+
+    day = Category(id=2, name='Day')
+    session.add(day)
+    session.commit()
+
+    place = Category(id=3, name='Place')
+    session.add(place)
+    session.commit()
+
+    return (verb, day, place)

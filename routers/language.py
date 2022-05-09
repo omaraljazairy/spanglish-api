@@ -1,9 +1,7 @@
 from typing import List
-from fastapi import APIRouter, Depends, status, HTTPException
-from datamodels import models
-from datamodels.schemas.language import Language, LanguageInsert, LanguageUpdate
+from fastapi import APIRouter, Depends, status
+from datamodels.schemas.language import LanguageBase, LanguageInsert, LanguageUpdate
 from datamodels.cruds import language
-# from exceptions import model_exceptions
 from sqlalchemy.orm import Session
 from services.database import get_db
 import logging
@@ -14,7 +12,7 @@ router = APIRouter(prefix='/language', tags=['language'])
 
 @router.post(
     "/",
-    response_model=Language,
+    response_model=LanguageBase,
     summary="Create new Language",
     status_code=status.HTTP_201_CREATED
 )
@@ -23,14 +21,14 @@ async def add_language(
     db: Session = Depends(get_db)):
     return language.create(db=db, request=request)
 
-@router.get("/all/",response_model=List[Language])
+@router.get("/all/",response_model=List[LanguageBase])
 async def get_all(db: Session = Depends(get_db)):
     """takes no args and returns all languages."""
 
     return language.get_all_languages(db=db)
 
 
-@router.patch("/update/id/{language_id:int}/", response_model=Language)
+@router.patch("/update/id/{language_id:int}/", response_model=LanguageBase)
 async def update_by_id(
     language_id: int,
     request: LanguageUpdate,

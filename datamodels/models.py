@@ -36,7 +36,7 @@ class Category(Base):
     __tablename__ = "Category"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(15), unique=True)
+    name = Column(String(15), unique=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
 

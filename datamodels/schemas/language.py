@@ -3,14 +3,14 @@ from datetime import datetime
 from typing import List, Optional
 
 
-class Language(BaseModel):
+class LanguageBase(BaseModel):
     """ base response model used for the api. It contains all the fields."""
     
     id: int = Field(
         title="The stored language Id in the backend."
     )
     name: str = Field(
-        title="The of the language. ex: `English`.",
+        title="The name of the language. ex: `English`.",
     )
     code: str = Field(
         title="The ISO 639-2 language code. ex: `EN`",
@@ -24,7 +24,7 @@ class Language(BaseModel):
 
 
 class LanguageInsert(BaseModel):
-    """use for the insert and update operations"""
+    """use for the insert operations"""
 
     name: str = Field(
         title="The of the language. ex: `English`.",
@@ -51,4 +51,4 @@ class LanguageUpdate(BaseModel):
 class PaginatedLanguageInfo(BaseModel):
     limit: int
     offset: int
-    data: List[Language]
+    data: List[LanguageBase]

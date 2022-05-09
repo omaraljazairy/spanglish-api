@@ -1,16 +1,17 @@
 import logging
 
-from datamodels import models
-
 logger = logging.getLogger('fixtures')
 
 
-def test_fixture_language(db, create_language):
+def test_fixture_language(created_language):
+    """check if the fixtures were created."""
 
-    create_language
-    languages = db.query(models.Language).all()
-    logger.debug(f'language : {languages} - {len(languages)}')
-    for lan in languages:
-        logger.debug(f"language {lan.id} - {lan.code}")
+    logger.debug(f"created_languages: {created_language}")
+    assert len(created_language) == 3
 
-    assert len(languages) == 3
+
+def test_fixture_category(created_category):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_category: {created_category}")
+    assert len(created_category) == 3
