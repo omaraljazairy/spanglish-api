@@ -25,8 +25,8 @@ class Language(Base):
     __tablename__ = "Language"
 
     id = Column(Integer, primary_key=True)
-    name = Column(String(15), unique=True)
-    code = Column(String(2), index=True)
+    name = Column(String(15), unique=True, nullable=False)
+    code = Column(String(2), index=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
     translation = relationship("Translation", back_populates="language")

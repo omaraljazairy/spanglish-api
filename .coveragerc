@@ -1,0 +1,31 @@
+[run]
+source = .
+omit =
+    # omit some files
+    app.py
+    mydataclass.py
+    
+    # omit files in the configs directory
+    app/config.py
+    app/log.py
+
+    # omit dbcon service file
+    services/database.py
+
+    # omit everything in /tests    
+    tests/**
+
+    # omit all __init__.py files every where
+    *__init__.py
+
+[pytest]
+filterwarnings =
+    ignore::UserWarning
+    ignore:DeprecationWarning
+    ignore:.*U.*mode is deprecated:DeprecationWarning
+addopts = -p no:warnings
+env_override_existing_values = 1
+env_files =
+    .env
+    .test.env
+    .dev.env

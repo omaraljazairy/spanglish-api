@@ -11,12 +11,12 @@ class Settings(BaseSettings):
     testing: bool = os.getenv("TESTING", 1)
     LOG_LEVEL = 'DEBUG' if environment == 'dev' else 'INFO'
 
-    logger.info(f"environment variables: {os.environ}")
-    logger.info(f"environment: {environment}")
-    logger.info(f"testing: {testing}")
-    logger.info(f"LOG_LEVEL: {LOG_LEVEL}")
+    # logger.info(f"environment variables: {os.environ}")
+    # logger.info(f"environment: {environment}")
+    # logger.info(f"testing: {testing}")
+    # logger.info(f"LOG_LEVEL: {LOG_LEVEL}")
 
 @lru_cache()
 def get_settings() -> BaseSettings:
-    # log.info("Loading config settings from the environment.....")
+    logger.info("Loading config settings from the environment.....")
     return Settings()
