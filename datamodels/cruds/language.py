@@ -37,7 +37,7 @@ def create(db: Session, request: LanguageInsert):
 
 def update(db: Session, request: LanguageUpdate, language_id: int):
     """
-    update the language model. take the LanguageInsertUpdate schema and a 
+    update the language model. take the LanguageUpdate schema and a 
     language_id as params. returns a language object.
     """
     language_db = db.query(Language).get(language_id)
