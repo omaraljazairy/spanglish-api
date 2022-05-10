@@ -15,3 +15,10 @@ def test_fixture_category(created_category):
 
     logger.debug(f"created_category: {created_category}")
     assert len(created_category) == 3
+
+
+def test_fixture_word(created_word):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_word: {created_word}")
+    assert len(created_word) == 3

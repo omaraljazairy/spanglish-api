@@ -39,6 +39,9 @@ class Category(Base):
     name = Column(String(15), unique=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
+    word = relationship("Word", back_populates="category")
+    sentence = relationship("Sentence", back_populates="category")
+
 
 class Word(Base):
     __tablename__ = "Word"
@@ -51,6 +54,8 @@ class Word(Base):
         onupdate='CASCADE'),
         nullable=False)
     created = Column(DateTime, default=datetime.now())
+
+    category = relationship("Category", back_populates="word")
 
 
 class Verb(Base):
@@ -81,6 +86,8 @@ class Sentence(Base):
         onupdate='CASCADE'),
         nullable=False)
     created = Column(DateTime, default=datetime.now())
+
+    category = relationship("Category", back_populates="sentence")
 
 
 class Translation(Base):

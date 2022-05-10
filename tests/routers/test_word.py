@@ -1,0 +1,82 @@
+import logging
+
+logger = logging.getLogger('test')
+
+
+def test_post_word_calle_success_201(client):
+    """create a new word Calle. expect response 201."""
+
+    response = client.post("/word/", json={
+        "word": "Calle",
+        "category_id": 2})
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {response.content}")
+
+    assert response.status_code == 201
+
+
+def test_post_word_exists_409(client):
+    """post an existing word, should get back 409 error"""
+
+    response = client.post("/word/", json={
+        "word": "Hablar",
+        "category_id": 1
+        })
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {response.content}")
+
+    assert response.status_code == 409
+
+
+def test_get_all_words_list_success(client):
+
+    response = client.get("/word/all/")
+    data = response.json()
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {data}")
+
+    assert response.status_code == 200
+    assert len(data) >= 2
+
+
+def test_patch_word_code_success(client):
+    """update word with id 2 with category 3."""
+
+    response = client.patch("/word/update/id/2/", json={"category_id": 1})
+    logger.debug(f"response from update: {response}")
+    logger.debug(f"response content: {response.content}")
+
+    assert response.status_code == 200
+
+
+def test_patch_word_not_found_404(client):
+    """update word with non existing id 1000. expect statuscode 404
+    not found."""
+
+    response = client.patch("/word/update/id/1000/", json={
+        "word": "Hola"
+        })
+    logger.debug(f"response from update: {response}")
+    logger.debug(f"response content: {response.content}")
+
+    assert response.status_code == 404
+
+
+def test_delete_word_success(client):
+    """delete word with id 3 and expect statuscode 204."""
+
+    response = client.delete("/word/delete/id/3/")
+    logger.debug(f"response from delete: {response}")
+    logger.debug(f"response content: {response.content}")
+
+    assert response.status_code == 204
+
+
+def test_delete_word_not_found(client):
+    """delete word with unknown id 6666 and expect statuscode 404."""
+
+    response = client.delete("/word/delete/id/6666/")
+    logger.debug(f"response from delete: {response}")
+    logger.debug(f"response content: {response.content}")
+
+    assert response.status_code == 404
