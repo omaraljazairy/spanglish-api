@@ -16,3 +16,5 @@ test-html:	## unittest the application using pytest and generate html report
 	@python -m pytest --cov=. tests/ --cov-report html --flake8 --isort
 db:	## access the test database
 	@docker exec -it ${DB_CONTAINER} mysql -uroot -p
+git-tag:	## add the tags to the changelog.md file
+	@git for-each-ref --sort=taggerdate --format='### %(color:green)%(refname:short)%(color:reset) %09 %(taggerdate) - %(taggername): %(subject)' refs/tags > CHANGELOG.md
