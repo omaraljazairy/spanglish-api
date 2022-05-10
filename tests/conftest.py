@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, database_exists
 
 from app.main import app
-from datamodels.models import Category, Language
+from datamodels.models import Category, Language, Word
 from services.database import Base, get_db
 
 logger = logging.getLogger('fixtures')
@@ -107,3 +107,23 @@ def created_category(db):
     session.commit()
 
     return (verb, day, place)
+
+
+@pytest.fixture(scope="session")
+def created_word(db):
+
+    session = db
+
+    word_1 = Word(id=1, category_id=1, word='Hablar')
+    session.add(word_1)
+    session.commit()
+
+    word_2 = Word(id=2, category_id=2, word='Jueves')
+    session.add(word_2)
+    session.commit()
+
+    word_3 = Word(id=3, category_id=2, word='Lunes')
+    session.add(word_3)
+    session.commit()
+
+    return (word_1, word_2, word_3)

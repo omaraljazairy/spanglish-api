@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from services.database import engine
 from datamodels import models
-from routers import language, category
+from routers import language, category, word
 from exceptions.model_exceptions import NotFoundException, AlreadyExistsException
 import logging.config
 from app.log import LOGGING
@@ -18,6 +18,7 @@ logger.debug('main initialized')
 app = FastAPI()
 app.include_router(router=language.router)
 app.include_router(router=category.router)
+app.include_router(router=word.router)
 
 
 # exception handlers
