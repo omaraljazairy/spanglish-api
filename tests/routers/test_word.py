@@ -7,7 +7,7 @@ def test_post_word_calle_success_201(client):
     """create a new word Calle. expect response 201."""
 
     response = client.post("/word/", json={
-        "word": "Calle",
+        "text": "Calle",
         "category_id": 2})
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {response.content}")
@@ -19,7 +19,7 @@ def test_post_word_exists_409(client):
     """post an existing word, should get back 409 error"""
 
     response = client.post("/word/", json={
-        "word": "Hablar",
+        "text": "Hablar",
         "category_id": 1
         })
     logger.debug(f"response: {response}")
@@ -54,7 +54,7 @@ def test_patch_word_not_found_404(client):
     not found."""
 
     response = client.patch("/word/update/id/1000/", json={
-        "word": "Hola"
+        "text": "Hola"
         })
     logger.debug(f"response from update: {response}")
     logger.debug(f"response content: {response.content}")

@@ -114,15 +114,15 @@ def created_word(db):
 
     session = db
 
-    word_1 = Word(id=1, category_id=1, word='Hablar')
+    word_1 = Word(id=1, category_id=1, text='Hablar')
     session.add(word_1)
     session.commit()
 
-    word_2 = Word(id=2, category_id=2, word='Jueves')
+    word_2 = Word(id=2, category_id=2, text='Jueves')
     session.add(word_2)
     session.commit()
 
-    word_3 = Word(id=3, category_id=2, word='Lunes')
+    word_3 = Word(id=3, category_id=2, text='Lunes')
     session.add(word_3)
     session.commit()
 

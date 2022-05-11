@@ -9,8 +9,8 @@ class WordBase(BaseModel):
     id: int = Field(
         title="The stored word Id in the backend."
     )
-    word: str = Field(
-        title="The word in Spanish for this application.",
+    text: str = Field(
+        title="The text in Spanish for this application.",
     )
     category_id: int = Field(
         title="The category id that belongs to it",
@@ -26,7 +26,7 @@ class WordBase(BaseModel):
 class WordInsert(BaseModel):
     """use for the insert operations"""
 
-    word: str = Field(
+    text: str = Field(
         title="The Spanish word",
         max_length=15
     )
@@ -39,7 +39,7 @@ class WordInsert(BaseModel):
 class WordUpdate(BaseModel):
     """use for the insert and update operations"""
 
-    word: Optional[str] = Field(
+    text: Optional[str] = Field(
         title="The Spanish word",
         max_length=15
     )

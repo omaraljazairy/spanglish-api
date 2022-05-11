@@ -17,13 +17,13 @@ def create(db: Session, request: WordInsert):
     """create a new Word object. check first if the records doesn't exist."""
 
     existing_word = db.query(Word).filter(
-    Word.word == request.word
+    Word.text == request.text
     ).first()
     
     if existing_word:
         logger.error(f"existing_word => {existing_word}")
         raise AlreadyExistsException(
-            msg=f"Word {request.word} already exists"
+            msg=f"Word {request.text} already exists"
         )
 
     db_word = Word(

@@ -40,14 +40,13 @@ class Category(Base):
     created = Column(DateTime, default=datetime.now())
 
     word = relationship("Word", back_populates="category")
-    sentence = relationship("Sentence", back_populates="category")
 
 
 class Word(Base):
     __tablename__ = "Word"
 
     id = Column(Integer, primary_key=True)
-    word = Column(String(15), unique=True, nullable=False)
+    text = Column(String(255), unique=True, nullable=False)
     category_id = Column(Integer, ForeignKey(
         'Category.id',
         ondelete='RESTRICT',
@@ -75,33 +74,12 @@ class Verb(Base):
     created = Column(DateTime, default=datetime.now())
 
 
-class Sentence(Base):
-    __tablename__ = "Sentence"
-
-    id = Column(Integer, primary_key=True)
-    sentence = Column(String(255), unique=True, nullable=False)
-    category_id = Column(Integer, ForeignKey(
-        'Category.id',
-        ondelete='RESTRICT',
-        onupdate='CASCADE'),
-        nullable=False)
-    created = Column(DateTime, default=datetime.now())
-
-    category = relationship("Category", back_populates="sentence")
-
-
 class Translation(Base):
     __tablename__ = "Translation"
 
     id = Column(Integer, primary_key=True)
     word_id = Column(Integer, ForeignKey(
         'Word.id',
-        ondelete='RESTRICT',
-        onupdate='CASCADE'),
-        nullable=True,
-        index=True)
-    sentence_id = Column(Integer, ForeignKey(
-        'Sentence.id',
         ondelete='RESTRICT',
         onupdate='CASCADE'),
         nullable=True,
@@ -123,12 +101,6 @@ class PracticeResult(Base):
     id = Column(Integer, primary_key=True)
     word_id = Column(Integer, ForeignKey(
         'Word.id',
-        ondelete='RESTRICT',
-        onupdate='CASCADE'),
-        nullable=True,
-        index=True)
-    sentence_id = Column(Integer, ForeignKey(
-        'Sentence.id',
         ondelete='RESTRICT',
         onupdate='CASCADE'),
         nullable=True,
