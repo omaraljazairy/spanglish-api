@@ -28,7 +28,7 @@ class WordInsert(BaseModel):
 
     text: str = Field(
         title="The Spanish word",
-        max_length=15
+        max_length=255
     )
 
     category_id: int = Field(
@@ -40,8 +40,8 @@ class WordUpdate(BaseModel):
     """use for the insert and update operations"""
 
     text: Optional[str] = Field(
-        title="The Spanish word",
-        max_length=15
+        title="The Spanish text of word or sentence",
+        max_length=255
     )
     category_id: Optional[int] = Field(
         title="The category_id",
