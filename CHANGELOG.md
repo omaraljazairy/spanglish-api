@@ -3,3 +3,4 @@
 ### v0.0.3 	 Mon May 9 23:01:21 2022 +0200 - Omar Aljazairy: category added #3
 ### v0.0.4 	 Tue May 10 23:07:24 2022 +0200 - Omar Aljazairy: word added #4
 ### v0.0.5 	 Wed May 11 23:44:22 2022 +0200 - Omar Aljazairy: word converted to be text #16
+### v0.0.6 	 Fri May 13 20:07:03 2022 +0200 - Omar Aljazairy: verb added #7
