@@ -16,7 +16,7 @@ class WordBase(BaseModel):
         title="The category id that belongs to it",
     )
     created: datetime = Field(
-        title="The datetime of the creation of the language record in the backend."
+        title="The datetime of the creation of the word record in the backend."
     )
     
     class Config:
@@ -37,7 +37,7 @@ class WordInsert(BaseModel):
 
 
 class WordUpdate(BaseModel):
-    """use for the insert and update operations"""
+    """use for the update operations"""
 
     text: Optional[str] = Field(
         title="The Spanish text of word or sentence",

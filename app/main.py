@@ -3,8 +3,9 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from services.database import engine
 from datamodels import models
-from routers import language, category, word
-from exceptions.model_exceptions import NotFoundException, AlreadyExistsException
+from routers import language, category, verb, word
+from exceptions.model_exceptions import (NotFoundException, AlreadyExistsException,
+                                         WordNotVerbException)
 import logging.config
 from app.log import LOGGING
 
@@ -19,6 +20,7 @@ app = FastAPI()
 app.include_router(router=language.router)
 app.include_router(router=category.router)
 app.include_router(router=word.router)
+app.include_router(router=verb.router)
 
 
 # exception handlers
@@ -35,6 +37,14 @@ def already_exists_exception_handler(request: Request, exc: AlreadyExistsExcepti
         status_code=exc.status_code,
         content=exc.detail
     )
+
+@app.exception_handler(WordNotVerbException)
+def not_verb_category_exception_handler(request: Request, exc: WordNotVerbException):
+        return JSONResponse(
+        status_code=exc.status_code,
+        content=exc.detail
+    )
+
 
 @app.get("/")
 async def main():
