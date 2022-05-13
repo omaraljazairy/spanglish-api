@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, database_exists
 
 from app.main import app
-from datamodels.models import Category, Language, Word
+from datamodels.models import Category, Language, Verb, Word
 from services.database import Base, get_db
 
 logger = logging.getLogger('fixtures')
@@ -114,16 +114,58 @@ def created_word(db):
 
     session = db
 
-    word_1 = Word(id=1, category_id=1, text='Hablar')
-    session.add(word_1)
+    hablar = Word(id=1, category_id=1, text='Hablar')
+    session.add(hablar)
     session.commit()
 
-    word_2 = Word(id=2, category_id=2, text='Jueves')
-    session.add(word_2)
+    jueves = Word(id=2, category_id=2, text='Jueves')
+    session.add(jueves)
     session.commit()
 
-    word_3 = Word(id=3, category_id=2, text='Lunes')
-    session.add(word_3)
+    lunes = Word(id=3, category_id=2, text='Lunes')
+    session.add(lunes)
     session.commit()
 
-    return (word_1, word_2, word_3)
+    comer = Word(id=4, category_id=1, text='Comer')
+    session.add(comer)
+    session.commit()
+
+    ir = Word(id=5, category_id=1, text='Ir')
+    session.add(ir)
+    session.commit()
+
+    return (hablar, jueves, lunes, comer, ir)
+
+
+@pytest.fixture(scope="session")
+def created_verb(db):
+
+    session = db
+
+    hablar = Verb(
+        id=1,
+        word_id=1,
+        yo='Hablo',
+        tu='Hablas',
+        el_ella_usted='Habla',
+        nosotros='hablamos',
+        vosotros='hablais',
+        ellos_ellas_ustedes='hablan'
+    )
+    session.add(hablar)
+    session.commit()
+
+    comer = Verb(
+        id=2,
+        word_id=4,
+        yo='Como',
+        tu='comes',
+        el_ella_usted='come',
+        nosotros='comemos',
+        vosotros='comeis',
+        ellos_ellas_ustedes='comen'
+    )
+    session.add(comer)
+    session.commit()
+
+    return (hablar, comer)

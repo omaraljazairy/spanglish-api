@@ -40,30 +40,30 @@ def update(db: Session, request: WordUpdate, word_id: int):
     update the word model. take the WordUpdate schema and a 
     word_id as params. returns a word object.
     """
-    word_db = db.query(Word).get(word_id)
+    db_word = db.query(Word).get(word_id)
     # throw an exception if not found
-    if not word_db:
+    if not db_word:
         raise NotFoundException(
             msg=f"word with id {word_id} is not found"
         )
     
     requested_word = request.dict(exclude_unset=True)
     for key, value in requested_word.items():
-        setattr(word_db, key, value)
-    db.add(word_db)
+        setattr(db_word, key, value)
+    db.add(db_word)
     db.commit()
-    db.refresh(word_db)
-    return word_db
+    db.refresh(db_word)
+    return db_word
 
 
 def delete(db: Session, word_id: int ) -> None:
     """delete the word object if found, else raise an exception."""
 
-    word_db = db.query(Word).get(word_id)
+    db_word = db.query(Word).get(word_id)
     # throw an exception if not found
-    if not word_db:
+    if not db_word:
         raise NotFoundException(
             msg=f"word with id {word_id} doesn't exist"
         )
-    db.delete(word_db)
+    db.delete(db_word)
     db.commit()

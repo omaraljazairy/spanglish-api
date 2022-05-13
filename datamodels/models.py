@@ -57,6 +57,14 @@ class Word(Base):
     category = relationship("Category", back_populates="word")
 
 
+    @property
+    def category_name(self) -> str:
+        """return the category name. """
+
+        return self.category.name
+
+
+
 class Verb(Base):
     __tablename__ = "Verb"
 
