@@ -63,9 +63,9 @@ def test_patch_word_not_found_404(client):
 
 
 def test_delete_word_success(client):
-    """delete word with id 3 and expect statuscode 204."""
+    """delete word with id 6 and expect statuscode 204."""
 
-    response = client.delete("/word/delete/id/3/")
+    response = client.delete("/word/delete/id/6/")
     logger.debug(f"response from delete: {response}")
     logger.debug(f"response content: {response.content}")
 

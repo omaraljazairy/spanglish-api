@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, database_exists
 
 from app.main import app
-from datamodels.models import Category, Language, Verb, Word
+from datamodels.models import Category, Language, Translation, Verb, Word
 from services.database import Base, get_db
 
 logger = logging.getLogger('fixtures')
@@ -106,6 +106,9 @@ def created_category(db):
     session.add(place)
     session.commit()
 
+    place = Category(id=4, name='Adjective')
+    session.add(place)
+    session.commit()
     return (verb, day, place)
 
 
@@ -134,7 +137,51 @@ def created_word(db):
     session.add(ir)
     session.commit()
 
-    return (hablar, jueves, lunes, comer, ir)
+    bella = Word(id=6, category_id=4, text='beautiful')
+    session.add(bella)
+    session.commit()
+
+    return (hablar, jueves, lunes, comer, ir, bella)
+
+
+@pytest.fixture(scope="session")
+def created_translation(db):
+
+    session = db
+
+    hablar = Translation(
+        id=1,
+        word_id=1,
+        language_id=1,
+        translation='to talk')
+    session.add(hablar)
+    session.commit()
+
+    jueves = Translation(
+        id=2,
+        word_id=2,
+        language_id=1,
+        translation='Thursday')
+    session.add(jueves)
+    session.commit()
+
+    lunes = Translation(
+        id=3,
+        word_id=3,
+        language_id=1,
+        translation='Monday')
+    session.add(lunes)
+    session.commit()
+
+    comer = Translation(
+        id=4,
+        word_id=4,
+        language_id=1,
+        translation='to eat')
+    session.add(comer)
+    session.commit()
+
+    return (hablar, jueves, lunes, comer)
 
 
 @pytest.fixture(scope="session")

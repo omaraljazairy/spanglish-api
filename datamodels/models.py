@@ -1,5 +1,6 @@
 import logging
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
+from unicodedata import name
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, UniqueConstraint
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from services.database import Base
@@ -99,6 +100,8 @@ class Translation(Base):
         index=True)
     translation = Column(String(255), nullable=False)
     created = Column(DateTime, default=datetime.now())
+
+    __table_args__ = (UniqueConstraint('word_id', 'translation', name="unique_word_translation"),)
 
     language = relationship("Language", back_populates="translation")
 

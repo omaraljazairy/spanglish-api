@@ -29,3 +29,10 @@ def test_fixture_verb(created_verb):
 
     logger.debug(f"created_verb: {created_verb}")
     assert len(created_verb) >= 2
+
+
+def test_fixture_translation(created_translation):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_translation: {created_translation}")
+    assert len(created_translation) >= 2
