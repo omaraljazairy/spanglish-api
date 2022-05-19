@@ -63,7 +63,7 @@ def test_patch_category_not_found_404(client):
 def test_delete_category_success(client):
     """delete category with id 3 and expect statuscode 204."""
 
-    response = client.delete("/category/delete/id/3/")
+    response = client.delete("/category/delete/id/5/")
     logger.debug(f"response from delete: {response}")
     logger.debug(f"response content: {response.content}")
 

@@ -36,3 +36,10 @@ def test_fixture_translation(created_translation):
 
     logger.debug(f"created_translation: {created_translation}")
     assert len(created_translation) >= 2
+
+
+def test_fixture_quiz(created_quiz):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_quizes: {created_quiz}")
+    assert len(created_quiz) >= 2
