@@ -4,4 +4,5 @@
 ### v0.0.4 	 Tue May 10 23:07:24 2022 +0200 - Omar Aljazairy: word added #4
 ### v0.0.5 	 Wed May 11 23:44:22 2022 +0200 - Omar Aljazairy: word converted to be text #16
 ### v0.0.6 	 Fri May 13 20:07:03 2022 +0200 - Omar Aljazairy: verb added #7
-### v0.0.7 	 Sun May 15 23:15:15 2022 +0200 - Omar Aljazairy: translation modules added
+### v0.0.7 	 Thu May 19 23:15:23 2022 +0200 - Omar Aljazairy: translation modules added #6
+### v0.0.8 	 Thu May 19 23:15:33 2022 +0200 - Omar Aljazairy: Quiz modules added and created new db models, Quiz, QuizQuestion, QuizResult #22
