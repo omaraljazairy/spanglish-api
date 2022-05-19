@@ -40,7 +40,7 @@ def test_get_all_words_list_success(client):
 
 
 def test_patch_word_code_success(client):
-    """update word with id 2 with category 3."""
+    """update word with id 2 with category 1."""
 
     response = client.patch("/word/update/id/2/", json={"category_id": 1})
     logger.debug(f"response from update: {response}")

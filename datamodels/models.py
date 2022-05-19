@@ -1,6 +1,9 @@
+from email.policy import default
+from enum import unique
 import logging
 from unicodedata import name
-from sqlalchemy import Column, ForeignKey, Integer, String, DateTime, UniqueConstraint
+from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime, Table,
+                        UniqueConstraint, Boolean)
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from services.database import Base
@@ -19,7 +22,7 @@ class User(Base):
     fullname = Column(String(30), nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    practice_result = relationship("PracticeResult", back_populates="user")
+    quiz_result = relationship("QuizResult", back_populates="user")
 
 
 class Language(Base):
@@ -57,14 +60,11 @@ class Word(Base):
 
     category = relationship("Category", back_populates="word")
 
-
     @property
     def category_name(self) -> str:
         """return the category name. """
 
         return self.category.name
-
-
 
 class Verb(Base):
     __tablename__ = "Verb"
@@ -85,6 +85,13 @@ class Verb(Base):
 
 class Translation(Base):
     __tablename__ = "Translation"
+    __table_args__ = (
+        UniqueConstraint(
+            'word_id',
+            'translation',
+            name="unique_word_translation"
+        ),
+    )
 
     id = Column(Integer, primary_key=True)
     word_id = Column(Integer, ForeignKey(
@@ -101,20 +108,18 @@ class Translation(Base):
     translation = Column(String(255), nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    __table_args__ = (UniqueConstraint('word_id', 'translation', name="unique_word_translation"),)
-
     language = relationship("Language", back_populates="translation")
 
 
-class PracticeResult(Base):
-    __tablename__ = "PracticeResult"
+class QuizResult(Base):
+    __tablename__ = "QuizResult"
 
     id = Column(Integer, primary_key=True)
-    word_id = Column(Integer, ForeignKey(
-        'Word.id',
+    quizquestion_id = Column(Integer, ForeignKey(
+        'QuizQuestion.id',
         ondelete='RESTRICT',
         onupdate='CASCADE'),
-        nullable=True,
+        nullable=False,
         index=True)
     attempts = Column(Integer, nullable=False, index=True)
     user_id = Column(Integer, ForeignKey(
@@ -123,4 +128,37 @@ class PracticeResult(Base):
         onupdate='CASCADE'))
     created = Column(DateTime, default=datetime.now())
 
-    user = relationship("User", back_populates="practice_result")
+    user = relationship("User", back_populates="quiz_result")
+    quiz_question = relationship("QuizQuestion", back_populates="quiz_result")
+
+
+class Quiz(Base):
+    __tablename__ = "Quiz"
+
+    id = Column(Integer, primary_key=True)
+    title = Column(String(30), unique=True, nullable=False)
+    active = Column(Boolean, default=1, index=True)
+    created = Column(DateTime, default=datetime.now())
+
+
+class QuizQuestion(Base):
+    __tablename__ = "QuizQuestion"
+    __table_args__ = (UniqueConstraint('word_id', 'quiz_id', name="unique_word_quiz"),)
+
+    id = Column(Integer, primary_key=True)
+    word_id = Column(Integer, ForeignKey(
+        'Word.id',
+        ondelete='RESTRICT',
+        onupdate='CASCADE'),
+        nullable=False,
+        index=True)
+    quiz_id = Column(Integer, ForeignKey(
+        'Quiz.id',
+        ondelete='RESTRICT',
+        onupdate='CASCADE'),
+        nullable=False,
+        index=True)        
+    question = Column(String(255), nullable=True)
+    created = Column(DateTime, default=datetime.now())
+
+    quiz_result = relationship("QuizResult", back_populates="quiz_question")

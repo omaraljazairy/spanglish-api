@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy_utils import create_database, database_exists
 
 from app.main import app
-from datamodels.models import Category, Language, Translation, Verb, Word
+from datamodels.models import Category, Language, Quiz, Translation, Verb, Word
 from services.database import Base, get_db
 
 logger = logging.getLogger('fixtures')
@@ -106,10 +106,15 @@ def created_category(db):
     session.add(place)
     session.commit()
 
-    place = Category(id=4, name='Adjective')
-    session.add(place)
+    adjective = Category(id=4, name='Adjective')
+    session.add(adjective)
     session.commit()
-    return (verb, day, place)
+
+    feeling = Category(id=5, name='Feeling')
+    session.add(feeling)
+    session.commit()
+
+    return (verb, day, place, adjective, feeling)
 
 
 @pytest.fixture(scope="session")
@@ -216,3 +221,26 @@ def created_verb(db):
     session.commit()
 
     return (hablar, comer)
+
+
+@pytest.fixture(scope="session")
+def created_quiz(db):
+
+    session = db
+
+    verbs = Quiz(id=1, title='Verbs', active=1)
+    session.add(verbs)
+    session.commit()
+
+    days = Quiz(id=2, title='Days', active=1)
+    session.add(days)
+    session.commit()
+
+    places = Quiz(id=3, title='Places', active=1)
+    session.add(places)
+    session.commit()
+
+    adjectives = Quiz(id=4, title='Adjectives', active=0)
+    session.add(adjectives)
+    session.commit()
+    return (verbs, days, places, adjectives)
