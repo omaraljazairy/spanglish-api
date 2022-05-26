@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from services.database import engine
 from datamodels import models
-from routers import language, category, verb, word, translation, quiz
+from routers import language, category, verb, word, translation, quiz, quizquestion
 from exceptions.model_exceptions import (NotFoundException, AlreadyExistsException,
                                          WordNotVerbException)
 import logging.config
@@ -23,6 +23,7 @@ app.include_router(router=word.router)
 app.include_router(router=verb.router)
 app.include_router(router=translation.router)
 app.include_router(router=quiz.router)
+app.include_router(router=quizquestion.router)
 
 # exception handlers
 @app.exception_handler(NotFoundException)

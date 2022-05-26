@@ -43,3 +43,10 @@ def test_fixture_quiz(created_quiz):
 
     logger.debug(f"created_quizes: {created_quiz}")
     assert len(created_quiz) >= 2
+
+
+def test_fixture_quizquestion(created_quizquestion):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_quizquestions: {created_quizquestion}")
+    assert len(created_quizquestion) >= 2

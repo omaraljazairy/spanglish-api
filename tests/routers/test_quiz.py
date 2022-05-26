@@ -89,9 +89,9 @@ def test_patch_quiz_not_found_404(client):
 
 
 def test_delete_quiz_success(client):
-    """delete quiz with id 4 and expect statuscode 204."""
+    """delete quiz with id 6 and expect statuscode 204."""
 
-    response = client.delete("/quiz/delete/id/4/")
+    response = client.delete("/quiz/delete/id/6/")
     logger.debug(f"response from delete: {response}")
     logger.debug(f"response content: {response.content}")
 
