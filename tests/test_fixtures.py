@@ -3,6 +3,13 @@ import logging
 logger = logging.getLogger('fixtures')
 
 
+def test_fixture_user(created_user):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_user: {created_user}")
+    assert len(created_user) >= 3
+
+
 def test_fixture_language(created_language):
     """check if the fixtures were created."""
 
@@ -50,3 +57,10 @@ def test_fixture_quizquestion(created_quizquestion):
 
     logger.debug(f"created_quizquestions: {created_quizquestion}")
     assert len(created_quizquestion) >= 2
+
+
+def test_fixture_quizresult(created_quizresult):
+    """check if the fixtures were created."""
+
+    logger.debug(f"created_quizresult: {created_quizresult}")
+    assert len(created_quizresult) >= 2
