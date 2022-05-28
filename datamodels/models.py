@@ -2,7 +2,7 @@ from email.policy import default
 from enum import unique
 import logging
 from unicodedata import name
-from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime, Table,
+from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime,
                         UniqueConstraint, Boolean)
 from sqlalchemy.orm import relationship
 from datetime import datetime

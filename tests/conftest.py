@@ -9,7 +9,7 @@ from sqlalchemy_utils import create_database, database_exists
 
 from app.main import app
 from datamodels.models import (Category, Language, Quiz, QuizQuestion,
-                               Translation, Verb, Word)
+                               QuizResult, Translation, User, Verb, Word)
 from services.database import Base, get_db
 
 logger = logging.getLogger('fixtures')
@@ -70,6 +70,44 @@ def client(db):
 
 
 # DB fixtures ###
+@pytest.fixture(scope="session")
+def created_user(db):
+    """ create users to be used in the test"""
+
+    session = db
+
+    user_1 = User(
+        id=1,
+        username='test_user1',
+        password='testpassword1',
+        email='test1@test.com',
+        fullname='test_test1'
+    )
+    session.add(user_1)
+    session.commit()
+
+    user_2 = User(
+        id=2,
+        username='test_user2',
+        password='testpassword2',
+        email='test2@test.com',
+        fullname='test_test2'
+    )
+    session.add(user_2)
+    session.commit()
+
+    user_3 = User(
+        id=3,
+        username='test_user3',
+        password='testpassword3',
+        email='test3@test.com',
+        fullname='test_test3'
+    )
+    session.add(user_3)
+    session.commit()
+    return (user_1, user_2, user_3)
+
+
 @pytest.fixture(scope="session")
 def created_language(db):
 
@@ -322,4 +360,73 @@ def created_quizquestion(db):
         question_4,
         question_5,
         question_6
+    )
+
+
+@pytest.fixture(scope="session")
+def created_quizresult(db):
+
+    session = db
+
+    result_1 = QuizResult(
+        id=1,
+        quizquestion_id=1,
+        attempts=1,
+        user_id=1
+    )
+    session.add(result_1)
+    session.commit()
+
+    result_2 = QuizResult(
+        id=2,
+        quizquestion_id=2,
+        attempts=3,
+        user_id=1
+    )
+    session.add(result_2)
+    session.commit()
+
+    result_3 = QuizResult(
+        id=3,
+        quizquestion_id=3,
+        attempts=2,
+        user_id=1
+    )
+    session.add(result_3)
+    session.commit()
+
+    result_4 = QuizResult(
+        id=4,
+        quizquestion_id=1,
+        attempts=4,
+        user_id=2
+    )
+    session.add(result_4)
+    session.commit()
+
+    result_5 = QuizResult(
+        id=5,
+        quizquestion_id=2,
+        attempts=1,
+        user_id=2
+    )
+    session.add(result_5)
+    session.commit()
+
+    result_6 = QuizResult(
+        id=6,
+        quizquestion_id=1,
+        attempts=3,
+        user_id=3
+    )
+    session.add(result_6)
+    session.commit()
+
+    return (
+        result_1,
+        result_2,
+        result_3,
+        result_4,
+        result_5,
+        result_6
     )
