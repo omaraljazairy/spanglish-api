@@ -7,3 +7,4 @@
 ### v0.0.7 	 Thu May 19 23:15:23 2022 +0200 - Omar Aljazairy: translation modules added #6
 ### v0.0.8 	 Thu May 19 23:15:33 2022 +0200 - Omar Aljazairy: Quiz modules added and created new db models, Quiz, QuizQuestion, QuizResult #22
 ### v0.0.9 	 Thu May 26 22:28:20 2022 +0200 - Omar Aljazairy: QuizQuestion modules added with tests #23
+### v0.1.0 	 Sat May 28 21:33:27 2022 +0200 - Omar Aljazairy: QuizResult modules and tests added #12
