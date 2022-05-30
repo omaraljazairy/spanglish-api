@@ -39,6 +39,19 @@ def test_get_all_words_list_success(client):
     assert len(data) >= 2
 
 
+def test_get_word_by_category_translation(client):
+    """make a get request with the category_id, expect to get a response
+    as a list with word and their translations."""
+
+    response = client.get("/word/category_id/1/limit/3/offset/0/")
+    data = response.json()
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {data}")
+
+    assert response.status_code == 200
+    assert len(data) >= 2
+
+
 def test_patch_word_code_success(client):
     """update word with id 2 with category 1."""
 

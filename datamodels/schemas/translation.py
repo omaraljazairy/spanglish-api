@@ -1,3 +1,4 @@
+from fnmatch import translate
 from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import List, Optional
@@ -58,6 +59,15 @@ class TranslationUpdate(BaseModel):
         title="The translation of the word",
         max_length=255
     )
+
+
+class TranslationsWord(BaseModel):
+    """only return the translation of the word without additional data."""
+
+    translation: str
+
+    class Config:
+        orm_mode = True
 
 
 class PaginatedTranslationInfo(BaseModel):

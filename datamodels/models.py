@@ -33,7 +33,7 @@ class Language(Base):
     code = Column(String(2), index=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    translation = relationship("Translation", back_populates="language")
+    # translation = relationship("Translation", back_populates="language")
 
 
 class Category(Base):
@@ -43,7 +43,7 @@ class Category(Base):
     name = Column(String(15), unique=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    word = relationship("Word", back_populates="category")
+    # word = relationship("Word", back_populates="category")
 
 
 class Word(Base):
@@ -58,13 +58,21 @@ class Word(Base):
         nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    category = relationship("Category", back_populates="word")
+    category = relationship("Category")
+    translations = relationship("Translation", back_populates="word")
 
     @property
     def category_name(self) -> str:
         """return the category name. """
 
         return self.category.name
+
+    @property
+    def word_translation(self) -> str:
+        """returns the translation of the text """
+
+        return self.translation.translation
+
 
 class Verb(Base):
     __tablename__ = "Verb"
@@ -108,7 +116,8 @@ class Translation(Base):
     translation = Column(String(255), nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    language = relationship("Language", back_populates="translation")
+    # language = relationship("Language", back_populates="translation")
+    word = relationship("Word", back_populates="translations")
 
 
 class QuizResult(Base):
