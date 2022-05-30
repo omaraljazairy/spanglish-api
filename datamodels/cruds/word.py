@@ -1,3 +1,5 @@
+from sre_constants import CATEGORY_DIGIT
+from sqlalchemy.sql import func
 from sqlalchemy.orm import Session
 from datamodels.models import Word
 from datamodels.schemas.word import WordInsert, WordUpdate
@@ -11,6 +13,14 @@ def get_all_words(db: Session):
     """return all data from the word model."""
 
     return db.query(Word).all()
+
+
+def get_word_by_category(db: Session, category_id: int, limit: int, offset:int):
+    """takes a category_id and returns all words that belong to it."""
+
+    return db.query(Word).filter(
+        Word.category_id == category_id
+        ).order_by(func.random()).offset(offset).limit(limit).all()
 
 
 def create(db: Session, request: WordInsert):

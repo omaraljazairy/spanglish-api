@@ -1,6 +1,8 @@
+from nis import cat
 from typing import List
 from fastapi import APIRouter, Depends, status
-from datamodels.schemas.word import WordBase, WordInsert, WordUpdate
+from datamodels.schemas.word import (WordBase, WordInsert, WordUpdate,
+                                     WordWithTranslationResponse)
 from datamodels.cruds import word
 from sqlalchemy.orm import Session
 from services.database import get_db
@@ -26,6 +28,27 @@ async def get_all(db: Session = Depends(get_db)):
     """takes no args and returns all words."""
 
     return word.get_all_words(db=db)
+
+
+@router.get(
+    "/category_id/{category_id:int}/limit/{limit:int}/offset/{offset:int}/",
+    response_model=List[WordWithTranslationResponse])
+async def get_by_category(
+    category_id: int,
+    limit: int,
+    offset: int,
+    db: Session = Depends(get_db)):
+    """takes a category_id and returns all words that belongs to it."""
+
+    data = word.get_word_by_category(
+        db=db,
+        category_id=category_id,
+        limit=limit,
+        offset=offset)
+    
+    logger.debug(f"words found for category {category_id}: {data}")
+
+    return data
 
 
 @router.patch("/update/id/{word_id:int}/", response_model=WordBase)

@@ -2,6 +2,8 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import List, Optional
 
+from datamodels.schemas.translation import TranslationsWord
+
 
 class WordBase(BaseModel):
     """ base response model used for the api. It contains all the fields."""
@@ -46,6 +48,18 @@ class WordUpdate(BaseModel):
     category_id: Optional[int] = Field(
         title="The category_id",
     )
+
+
+class WordWithTranslationResponse(BaseModel):
+    """returns the translation with the word."""
+
+    id: int
+    text: str
+    category_name: str
+    translations: List[TranslationsWord]
+
+    class Config:
+        orm_mode = True
 
 
 class PaginatedWordInfo(BaseModel):
