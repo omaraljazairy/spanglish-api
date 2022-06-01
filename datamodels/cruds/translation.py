@@ -17,13 +17,13 @@ def create(db: Session, request: TranslationInsert):
     """create a new Translation object. check first if the records doesn't exist."""
 
     existing_translation = db.query(Translation).filter(
-    Translation.word_id == request.word_id
+    Translation.translation == request.translation
     ).first()
     
     if existing_translation:
         logger.error(f"existing_translation => {existing_translation}")
         raise AlreadyExistsException(
-            msg=f"Translation for word_id {request.word_id} already exists"
+            msg=f"Translation {request.translation} already exists"
         )
 
     db_translation = Translation(

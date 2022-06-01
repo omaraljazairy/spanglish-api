@@ -161,27 +161,65 @@ def created_word(db):
 
     session = db
 
-    hablar = Word(id=1, category_id=1, text='Hablar')
+    hablar = Word(
+        id=1,
+        category_id=1,
+        text='Hablar',
+        translation=[
+            Translation(language_id=1, translation='speak'),
+            Translation(language_id=1, translation='to talk')
+        ]
+    )
     session.add(hablar)
-    session.commit()
 
-    jueves = Word(id=2, category_id=2, text='Jueves')
+    jueves = Word(
+        id=2,
+        category_id=2,
+        text='Jueves',
+        translation=[
+            Translation(language_id=1, translation='Thursday')
+        ]
+    )
     session.add(jueves)
-    session.commit()
 
-    lunes = Word(id=3, category_id=2, text='Lunes')
+    lunes = Word(
+        id=3,
+        category_id=2,
+        text='Lunes',
+        translation=[
+            Translation(language_id=1, translation='Monday')
+        ]
+    )
     session.add(lunes)
-    session.commit()
 
-    comer = Word(id=4, category_id=1, text='Comer')
+    comer = Word(
+        id=4,
+        category_id=1,
+        text='Comer',
+        translation=[
+            Translation(language_id=1, translation='Eat')
+        ]
+    )
     session.add(comer)
-    session.commit()
 
-    ir = Word(id=5, category_id=1, text='Ir')
+    ir = Word(
+        id=5,
+        category_id=1,
+        text='Ir',
+        translation=[
+            Translation(language_id=1, translation='Go')
+        ]
+    )
     session.add(ir)
-    session.commit()
 
-    bella = Word(id=6, category_id=4, text='beautiful')
+    bella = Word(
+        id=6,
+        category_id=4,
+        text='Bonita',
+        translation=[
+            Translation(language_id=1, translation='Beautiful')
+        ]
+    )
     session.add(bella)
     session.commit()
 
@@ -195,7 +233,6 @@ def created_translation(db):
 
     hablar = Translation(
         id=1,
-        word_id=1,
         language_id=1,
         translation='to talk')
     session.add(hablar)
@@ -203,7 +240,6 @@ def created_translation(db):
 
     jueves = Translation(
         id=2,
-        word_id=2,
         language_id=1,
         translation='Thursday')
     session.add(jueves)
@@ -211,7 +247,6 @@ def created_translation(db):
 
     lunes = Translation(
         id=3,
-        word_id=3,
         language_id=1,
         translation='Monday')
     session.add(lunes)
@@ -219,7 +254,6 @@ def created_translation(db):
 
     comer = Translation(
         id=4,
-        word_id=4,
         language_id=1,
         translation='to eat')
     session.add(comer)

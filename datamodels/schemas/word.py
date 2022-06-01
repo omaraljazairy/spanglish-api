@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from typing import List, Optional
 
-from datamodels.schemas.translation import TranslationsWord
+from datamodels.schemas.translation import TranslationBase, TranslationInsert, TranslationCustomResponse
 
 
 class WordBase(BaseModel):
@@ -20,6 +20,8 @@ class WordBase(BaseModel):
     created: datetime = Field(
         title="The datetime of the creation of the word record in the backend."
     )
+
+    translation: List[TranslationBase]
     
     class Config:
         orm_mode = True
@@ -36,6 +38,11 @@ class WordInsert(BaseModel):
     category_id: int = Field(
         title="The category_id",
     )
+
+    translation: List[TranslationInsert]
+
+    class Config:
+        arbitrary_types_allowed = True
 
 
 class WordUpdate(BaseModel):
@@ -56,7 +63,7 @@ class WordWithTranslationResponse(BaseModel):
     id: int
     text: str
     category_name: str
-    translations: List[TranslationsWord]
+    translation: List[TranslationCustomResponse]
 
     class Config:
         orm_mode = True

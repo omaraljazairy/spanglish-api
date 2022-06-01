@@ -8,7 +8,13 @@ def test_post_word_calle_success_201(client):
 
     response = client.post("/word/", json={
         "text": "Calle",
-        "category_id": 2})
+        "category_id": 2,
+        "translation": [
+            {
+                'language_id': 1,
+                'translation': "Street"
+            }
+        ]})
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {response.content}")
 
@@ -20,7 +26,13 @@ def test_post_word_exists_409(client):
 
     response = client.post("/word/", json={
         "text": "Hablar",
-        "category_id": 1
+        "category_id": 1,
+        "translation": [
+            {
+                "language_id": 1,
+                "translation": "talk"
+            }
+        ]
         })
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {response.content}")
