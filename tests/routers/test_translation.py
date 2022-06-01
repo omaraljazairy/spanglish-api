@@ -7,7 +7,6 @@ def test_post_translation_ir_success_201(client):
     """create a new translation ir. expect response 201."""
 
     response = client.post("/translation/", json={
-        "word_id": 5,
         "language_id": 1,
         "translation": "to go"
         })
@@ -21,7 +20,6 @@ def test_post_translation_exists_409(client):
     """post an existing translation, should get back 409 error"""
 
     response = client.post("/translation/", json={
-        "word_id": 1,
         "language_id": 1,
         "translation": "to talk"
         })

@@ -10,9 +10,6 @@ class TranslationBase(BaseModel):
     id: int = Field(
         title="The stored translation Id in the backend."
     )
-    word_id: int = Field(
-        title="The word_id of the spanish text.",
-    )
     language_id: int = Field(
         title="The language_id of the translation",
     )
@@ -30,10 +27,6 @@ class TranslationBase(BaseModel):
 class TranslationInsert(BaseModel):
     """use for the insert operations"""
 
-    word_id: int = Field(
-        title="The Spanish word_id"
-    )
-
     language_id: int = Field(
         title="The language_id of the translation",
     )
@@ -47,9 +40,6 @@ class TranslationInsert(BaseModel):
 class TranslationUpdate(BaseModel):
     """use for the update operations"""
 
-    word_id: Optional[int] = Field(
-        title="The Spanish word_id"
-    )
 
     language_id: Optional[int] = Field(
         title="The language_id of the translation",
@@ -61,10 +51,11 @@ class TranslationUpdate(BaseModel):
     )
 
 
-class TranslationsWord(BaseModel):
-    """only return the translation of the word without additional data."""
+class TranslationCustomResponse(BaseModel):
+    """use for the update operations"""
 
     translation: str
+    language_name: str
 
     class Config:
         orm_mode = True

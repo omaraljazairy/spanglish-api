@@ -3,7 +3,7 @@ from enum import unique
 import logging
 from unicodedata import name
 from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime,
-                        UniqueConstraint, Boolean)
+                        UniqueConstraint, Boolean, Table)
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from services.database import Base
@@ -33,8 +33,7 @@ class Language(Base):
     code = Column(String(2), index=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    # translation = relationship("Translation", back_populates="language")
-
+    translation = relationship("Translation", back_populates="language")
 
 class Category(Base):
     __tablename__ = "Category"
@@ -43,7 +42,13 @@ class Category(Base):
     name = Column(String(15), unique=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    # word = relationship("Word", back_populates="category")
+
+word_translation = Table(
+    "Word_Translation",
+    Base.metadata,
+    Column("word_id", ForeignKey('Word.id'), primary_key=True),
+    Column("translation_id", ForeignKey('Translation.id'), primary_key=True)
+)
 
 
 class Word(Base):
@@ -57,21 +62,15 @@ class Word(Base):
         onupdate='CASCADE'),
         nullable=False)
     created = Column(DateTime, default=datetime.now())
-
+    translation = relationship("Translation", secondary="Word_Translation", back_populates='word')
     category = relationship("Category")
-    translations = relationship("Translation", back_populates="word")
+
 
     @property
     def category_name(self) -> str:
         """return the category name. """
 
         return self.category.name
-
-    @property
-    def word_translation(self) -> str:
-        """returns the translation of the text """
-
-        return self.translation.translation
 
 
 class Verb(Base):
@@ -93,21 +92,8 @@ class Verb(Base):
 
 class Translation(Base):
     __tablename__ = "Translation"
-    __table_args__ = (
-        UniqueConstraint(
-            'word_id',
-            'translation',
-            name="unique_word_translation"
-        ),
-    )
 
     id = Column(Integer, primary_key=True)
-    word_id = Column(Integer, ForeignKey(
-        'Word.id',
-        ondelete='RESTRICT',
-        onupdate='CASCADE'),
-        nullable=True,
-        index=True)
     language_id = Column(Integer, ForeignKey(
         'Language.id',
         ondelete='RESTRICT',
@@ -116,8 +102,14 @@ class Translation(Base):
     translation = Column(String(255), nullable=False)
     created = Column(DateTime, default=datetime.now())
 
-    # language = relationship("Language", back_populates="translation")
-    word = relationship("Word", back_populates="translations")
+    language = relationship("Language", back_populates="translation")
+    word = relationship("Word", secondary="Word_Translation", back_populates='translation')
+
+    @property
+    def language_name(self) -> str:
+        """returns the language name."""
+
+        return self.language.name
 
 
 class QuizResult(Base):

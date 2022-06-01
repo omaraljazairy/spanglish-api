@@ -1,7 +1,7 @@
 from sre_constants import CATEGORY_DIGIT
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Session
-from datamodels.models import Word
+from datamodels.models import Word, Translation
 from datamodels.schemas.word import WordInsert, WordUpdate
 from exceptions.model_exceptions import AlreadyExistsException, NotFoundException
 import logging
@@ -37,7 +37,14 @@ def create(db: Session, request: WordInsert):
         )
 
     db_word = Word(
-        **request.dict()
+        text=request.text,
+        category_id=request.category_id,
+        translation=[
+            Translation(
+                language_id=translate.language_id,
+                translation=translate.translation
+            ) for translate in request.translation
+        ]
     )
     db.add(db_word)
     db.commit()

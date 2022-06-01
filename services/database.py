@@ -1,4 +1,5 @@
 import os
+from click import echo
 from sqlalchemy import create_engine, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -13,7 +14,7 @@ SQLALCHEMY_DATABASE_URL = MYSQL_URL if DB_HOST else SQLITE_URL
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={}
+    SQLALCHEMY_DATABASE_URL, connect_args={}, echo=True
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
