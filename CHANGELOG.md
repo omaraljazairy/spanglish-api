@@ -9,3 +9,4 @@
 ### v0.0.9 	 Thu May 26 22:28:20 2022 +0200 - Omar Aljazairy: QuizQuestion modules added with tests #23
 ### v0.1.0 	 Sat May 28 21:33:27 2022 +0200 - Omar Aljazairy: QuizResult modules and tests added #12
 ### v0.1.1 	 Mon May 30 20:34:00 2022 +0200 - Omar Aljazairy: Words selected by catgory with limit, offset and random order #19
+### v0.1.2 	 Wed Jun 1 22:32:35 2022 +0200 - Omar Aljazairy: Word Translation Many-to-many created #30
