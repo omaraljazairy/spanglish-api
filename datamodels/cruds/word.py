@@ -1,7 +1,8 @@
-from sre_constants import CATEGORY_DIGIT
+from datetime import datetime
+from typing import List
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Session
-from datamodels.models import Word, Translation
+from datamodels.models import QuizQuestion, QuizResult, Word, Translation
 from datamodels.schemas.word import WordInsert, WordUpdate
 from exceptions.model_exceptions import AlreadyExistsException, NotFoundException
 import logging
@@ -15,12 +16,47 @@ def get_all_words(db: Session):
     return db.query(Word).all()
 
 
-def get_word_by_category(db: Session, category_id: int, limit: int, offset:int):
-    """takes a category_id and returns all words that belong to it."""
+def get_word_by_category(
+    db: Session, 
+    category_id: int, 
+    limit: int, 
+    offset:int,
+    exclude_from_result_date: datetime = None):
+    """takes a category_id, limit, offset and an optional exclude_from_result_date
+    and returns all words that belong to the category. If exclude_from_result_date
+    is set with a date, it will exclude the words from the quizresult date."""
 
-    return db.query(Word).filter(
-        Word.category_id == category_id
-        ).order_by(func.random()).offset(offset).limit(limit).all()
+    if not exclude_from_result_date:
+        # if not set, return all the words that belong to the category.
+
+        return db.query(Word).filter(
+            Word.category_id == category_id
+            ).order_by(func.random()).offset(offset).limit(limit).all()
+
+    else:
+        # get the word_ids that need to be excluded
+        used_words = db.query(
+            QuizQuestion.word_id
+            ).join(
+                QuizResult, QuizResult.quizquestion_id == QuizQuestion.id
+            ).filter(
+                func.date(QuizResult.created) == func.date(exclude_from_result_date)
+            ).all()
+
+        # convert it to a set
+        excluded_word_ids = {word_id['word_id'] for word_id in used_words}
+
+        return db.query(Word).filter(
+            Word.category_id == category_id
+            ).filter(
+                ~Word.id.in_(excluded_word_ids)
+            ).order_by(
+                func.random()
+            ).offset(
+                offset
+            ).limit(
+                limit
+            ).all()
 
 
 def create(db: Session, request: WordInsert):

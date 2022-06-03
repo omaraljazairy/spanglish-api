@@ -1,4 +1,4 @@
-from nis import cat
+from datetime import datetime
 from typing import List
 from fastapi import APIRouter, Depends, status
 from datamodels.schemas.word import (WordBase, WordInsert, WordUpdate,
@@ -31,20 +31,26 @@ async def get_all(db: Session = Depends(get_db)):
 
 
 @router.get(
-    "/category_id/{category_id:int}/limit/{limit:int}/offset/{offset:int}/",
+    "/category_id/{category_id:int}/",
     response_model=List[WordWithTranslationResponse])
 async def get_by_category(
     category_id: int,
-    limit: int,
-    offset: int,
+    limit: int = 100,
+    offset: int = 0,
+    exclude_from_result_date: datetime = None,
     db: Session = Depends(get_db)):
-    """takes a category_id and returns all words that belongs to it."""
+    """takes a category_id as a path parameter and limit, offset and the 
+    exclude_from_result_date as query optional parameter.
+    The exclude_from_result_date is optional and is only to exclude words 
+    from that have been in the quizresult on that given date.
+    """
 
     data = word.get_word_by_category(
         db=db,
         category_id=category_id,
         limit=limit,
-        offset=offset)
+        offset=offset,
+        exclude_from_result_date=exclude_from_result_date)
     
     logger.debug(f"words found for category {category_id}: {data}")
 
