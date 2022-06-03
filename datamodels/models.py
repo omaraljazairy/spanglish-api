@@ -1,7 +1,4 @@
-from email.policy import default
-from enum import unique
 import logging
-from unicodedata import name
 from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime,
                         UniqueConstraint, Boolean, Table)
 from sqlalchemy.orm import relationship
@@ -133,6 +130,7 @@ class QuizResult(Base):
     quiz_question = relationship("QuizQuestion", back_populates="quiz_result")
 
 
+
 class Quiz(Base):
     __tablename__ = "Quiz"
 
@@ -163,3 +161,9 @@ class QuizQuestion(Base):
     created = Column(DateTime, default=datetime.now())
 
     quiz_result = relationship("QuizResult", back_populates="quiz_question")
+    quiz_word = relationship("Word")
+
+    @property
+    def get_word_translation(self):
+
+        return self.quiz_word.id

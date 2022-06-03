@@ -14,7 +14,7 @@ def get_all_quizquestions(db: Session):
 
 
 def create(db: Session, request: QuizQuestionInsert):
-    """create a new QuizQuestion object. check first if the records doesn't exist."""
+    """create a new QuizQuestion object. check first if the records don't exist."""
 
     existing_quizquestion = db.query(QuizQuestion).filter(
     QuizQuestion.quiz_id == request.quiz_id, QuizQuestion.word_id == request.word_id

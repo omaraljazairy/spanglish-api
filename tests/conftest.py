@@ -1,5 +1,6 @@
 import logging
 import os
+from datetime import datetime, timedelta
 
 import pytest
 from fastapi.testclient import TestClient
@@ -406,7 +407,8 @@ def created_quizresult(db):
         id=1,
         quizquestion_id=1,
         attempts=1,
-        user_id=1
+        user_id=1,
+        created=datetime.today() - timedelta(days=2)
     )
     session.add(result_1)
     session.commit()
@@ -424,7 +426,8 @@ def created_quizresult(db):
         id=3,
         quizquestion_id=3,
         attempts=2,
-        user_id=1
+        user_id=1,
+        created=datetime.today() - timedelta(days=1)
     )
     session.add(result_3)
     session.commit()
@@ -433,7 +436,8 @@ def created_quizresult(db):
         id=4,
         quizquestion_id=1,
         attempts=4,
-        user_id=2
+        user_id=2,
+        created=datetime.today() - timedelta(days=3)
     )
     session.add(result_4)
     session.commit()
@@ -442,7 +446,8 @@ def created_quizresult(db):
         id=5,
         quizquestion_id=2,
         attempts=1,
-        user_id=2
+        user_id=2,
+        created=datetime.today() - timedelta(days=2)
     )
     session.add(result_5)
     session.commit()

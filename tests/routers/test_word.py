@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime, timedelta
 
 logger = logging.getLogger('test')
 
@@ -51,17 +52,34 @@ def test_get_all_words_list_success(client):
     assert len(data) >= 2
 
 
-def test_get_word_by_category_translation(client):
+def test_get_word_by_category(client):
     """make a get request with the category_id, expect to get a response
     as a list with word and their translations."""
 
-    response = client.get("/word/category_id/1/limit/3/offset/0/")
+    response = client.get("/word/category_id/1/?limit=3&offset=0")
     data = response.json()
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {data}")
+    logger.debug(f"total records: {len(data)}")
 
     assert response.status_code == 200
-    assert len(data) >= 2
+    assert len(data) == 3
+
+
+def test_get_words_excluded_from_quiz_result(client):
+    """expect words that are not from the current day."""
+
+    one_day_ago = str(datetime.today() - timedelta(days=2))
+    query = f"exclude_from_result_date={one_day_ago}&limit=5&offset=0"
+
+    response = client.get(f"/word/category_id/1/?{query}")
+    data = response.json()
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {data}")
+    logger.debug(f"total records: {len(data)}")
+
+    assert response.status_code == 200
+    assert len(data) == 2
 
 
 def test_patch_word_code_success(client):
