@@ -10,3 +10,4 @@
 ### v0.1.0 	 Sat May 28 21:33:27 2022 +0200 - Omar Aljazairy: QuizResult modules and tests added #12
 ### v0.1.1 	 Mon May 30 20:34:00 2022 +0200 - Omar Aljazairy: Words selected by catgory with limit, offset and random order #19
 ### v0.1.2 	 Wed Jun 1 22:32:35 2022 +0200 - Omar Aljazairy: Word Translation Many-to-many created #30
+### v0.1.3 	 Fri Jun 3 21:02:46 2022 +0200 - Omar Aljazairy: Word fetch with the option to exclude used words in a quiz result. get-random-words-not-in-the-quizresult-table-#20
