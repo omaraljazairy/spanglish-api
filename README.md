@@ -38,6 +38,8 @@ classDiagram
     Word: +text str
     Word: +category_id int
     Word: +created datetime
+    Word: +category_name() str
+    Word: +verb_pronounces() dict
 
     class Verb
     Verb: +word_id int
@@ -51,25 +53,39 @@ classDiagram
     
     class Translation
     Translation: +id int
-    Translation: +word_id int
     Translation: +language_id int
     Translation: +translation str
     Translation: +created datetime
 
-    class PracticeResult
-    PracticeResult: +id int
-    PracticeResult: +word_id int
-    PracticeResult: +attempts int
-    PracticeResult: +user_id int
-    PracticeResult: +created datetime
+    class Quiz
+    Quiz: +id int
+    Quiz: +title str
+    Quiz: +active bool
+    Quiz: +created datetime
+
+    class QuizQuestion
+    QuizQuestion: +id int
+    QuizQuestion: +word_id int
+    QuizQuestion: +quiz_id int
+    QuizQuestion: +question str
+    QuizQuestion: +created datetime
+
+    class QuizResult
+    QuizResult: +id int
+    QuizResult: +quizquestion_id int
+    QuizResult: +attempts int
+    QuizResult: +user_id int
+    QuizResult: +created datetime
 
 
     Category "1" --> "many" Word
     Word "1" --> "1" Verb
     Translation "1" --> "many" Language
-    Word "1" --> "many" Translation
-    User "1" --> "many" PracticeResult
-    Word "many" <--> "many" PracticeResult
+    Word "many" <--> "many" Translation
+    User "1" --> "many" QuizResult
+    Word "many" <--> "many" QuizResult
+    Quiz "1" --> "many" QuizQuestion
+    QuizQuestion "many" <--> "many" QuizResult
 
 ```
 

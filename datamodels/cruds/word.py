@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import Dict, List
 from sqlalchemy.sql import func
 from sqlalchemy.orm import Session
 from datamodels.models import QuizQuestion, QuizResult, Word, Translation
@@ -58,6 +58,14 @@ def get_word_by_category(
                 limit
             ).all()
 
+def get_word_by_id(db: Session, word_id: int) -> Dict:
+    """takes the word_id as int and returns a dictionary of a single word 
+    object.
+    """
+
+    word = db.query(Word).filter_by(id = word_id).first()
+    return word
+
 
 def create(db: Session, request: WordInsert):
     """create a new Word object. check first if the records doesn't exist."""
@@ -75,11 +83,11 @@ def create(db: Session, request: WordInsert):
     db_word = Word(
         text=request.text,
         category_id=request.category_id,
-        translation=[
+        translations=[
             Translation(
                 language_id=translate.language_id,
                 translation=translate.translation
-            ) for translate in request.translation
+            ) for translate in request.translations
         ]
     )
     db.add(db_word)

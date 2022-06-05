@@ -4,6 +4,7 @@ from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime,
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from services.database import Base
+from typing import Dict
 
 
 logger = logging.getLogger('models')
@@ -59,8 +60,10 @@ class Word(Base):
         onupdate='CASCADE'),
         nullable=False)
     created = Column(DateTime, default=datetime.now())
-    translation = relationship("Translation", secondary="Word_Translation", back_populates='word')
+    translations = relationship("Translation", secondary="Word_Translation", back_populates='word')
     category = relationship("Category")
+
+    verb = relationship("Verb", back_populates='word')
 
 
     @property
@@ -68,6 +71,21 @@ class Word(Base):
         """return the category name. """
 
         return self.category.name
+
+    @property
+    def verb_pronounces(self) -> Dict[str, str]:
+        """returns all the verb pronounces that belong to the word if the
+        category is a verb, otherwise return an empty dict."""
+
+        if not self.verb:
+            return {}
+
+        # convert the verb sqlalchemy.orm.collections.InstrumentedList
+        # to a python list. It will always have one element. convert
+        # the verb object into a dict and return it.
+        verb_obj = list(self.verb)[0].__dict__
+
+        return verb_obj
 
 
 class Verb(Base):
@@ -86,6 +104,8 @@ class Verb(Base):
     ellos_ellas_ustedes = Column(String(15), nullable=True)
     created = Column(DateTime, default=datetime.now())
 
+    word = relationship("Word", back_populates='verb')
+
 
 class Translation(Base):
     __tablename__ = "Translation"
@@ -100,7 +120,7 @@ class Translation(Base):
     created = Column(DateTime, default=datetime.now())
 
     language = relationship("Language", back_populates="translation")
-    word = relationship("Word", secondary="Word_Translation", back_populates='translation')
+    word = relationship("Word", secondary="Word_Translation", back_populates='translations')
 
     @property
     def language_name(self) -> str:
@@ -162,8 +182,3 @@ class QuizQuestion(Base):
 
     quiz_result = relationship("QuizResult", back_populates="quiz_question")
     quiz_word = relationship("Word")
-
-    @property
-    def get_word_translation(self):
-
-        return self.quiz_word.id

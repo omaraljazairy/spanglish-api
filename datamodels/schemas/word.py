@@ -1,8 +1,9 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from datamodels.schemas.translation import TranslationBase, TranslationInsert, TranslationCustomResponse
+from datamodels.schemas.verb import VerbWordResponse
 
 
 class WordBase(BaseModel):
@@ -21,7 +22,28 @@ class WordBase(BaseModel):
         title="The datetime of the creation of the word record in the backend."
     )
 
-    translation: List[TranslationBase]
+    translations: List[TranslationBase]
+    verb_pronounces: Union[VerbWordResponse, dict]
+    
+    class Config:
+        orm_mode = True
+
+
+class WordVerb(BaseModel):
+    """ base response model used for the api. It contains all the fields."""
+    
+    id: int = Field(
+        title="The stored word Id in the backend."
+    )
+    text: str = Field(
+        title="The text in Spanish for this application.",
+    )
+    category_name: str = Field(
+        title="The category id that belongs to it",
+    )
+
+    translations: List[TranslationCustomResponse]
+    verb_pronounces: Union[VerbWordResponse, dict]
     
     class Config:
         orm_mode = True
@@ -39,7 +61,7 @@ class WordInsert(BaseModel):
         title="The category_id",
     )
 
-    translation: List[TranslationInsert]
+    translations: List[TranslationInsert]
 
     class Config:
         arbitrary_types_allowed = True
@@ -63,7 +85,7 @@ class WordWithTranslationResponse(BaseModel):
     id: int
     text: str
     category_name: str
-    translation: List[TranslationCustomResponse]
+    translations: List[TranslationCustomResponse]
 
     class Config:
         orm_mode = True
