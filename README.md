@@ -83,7 +83,7 @@ classDiagram
     Translation "1" --> "many" Language
     Word "many" <--> "many" Translation
     User "1" --> "many" QuizResult
-    Word "many" <--> "many" QuizResult
+    Word "many" <--> "many" QuizQuestion
     Quiz "1" --> "many" QuizQuestion
     QuizQuestion "many" <--> "many" QuizResult
 
