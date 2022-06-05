@@ -166,8 +166,8 @@ def created_word(db):
         id=1,
         category_id=1,
         text='Hablar',
-        translation=[
-            Translation(language_id=1, translation='speak'),
+        translations=[
+            Translation(language_id=1, translation='to speak'),
             Translation(language_id=1, translation='to talk')
         ]
     )
@@ -177,7 +177,7 @@ def created_word(db):
         id=2,
         category_id=2,
         text='Jueves',
-        translation=[
+        translations=[
             Translation(language_id=1, translation='Thursday')
         ]
     )
@@ -187,7 +187,7 @@ def created_word(db):
         id=3,
         category_id=2,
         text='Lunes',
-        translation=[
+        translations=[
             Translation(language_id=1, translation='Monday')
         ]
     )
@@ -197,7 +197,7 @@ def created_word(db):
         id=4,
         category_id=1,
         text='Comer',
-        translation=[
+        translations=[
             Translation(language_id=1, translation='Eat')
         ]
     )
@@ -207,7 +207,7 @@ def created_word(db):
         id=5,
         category_id=1,
         text='Ir',
-        translation=[
+        translations=[
             Translation(language_id=1, translation='Go')
         ]
     )
@@ -217,7 +217,7 @@ def created_word(db):
         id=6,
         category_id=4,
         text='Bonita',
-        translation=[
+        translations=[
             Translation(language_id=1, translation='Beautiful')
         ]
     )

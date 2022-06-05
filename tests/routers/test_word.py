@@ -10,7 +10,7 @@ def test_post_word_calle_success_201(client):
     response = client.post("/word/", json={
         "text": "Calle",
         "category_id": 2,
-        "translation": [
+        "translations": [
             {
                 'language_id': 1,
                 'translation': "Street"
@@ -28,7 +28,7 @@ def test_post_word_exists_409(client):
     response = client.post("/word/", json={
         "text": "Hablar",
         "category_id": 1,
-        "translation": [
+        "translations": [
             {
                 "language_id": 1,
                 "translation": "talk"
@@ -80,6 +80,68 @@ def test_get_words_excluded_from_quiz_result(client):
 
     assert response.status_code == 200
     assert len(data) == 2
+
+
+def test_get_word_by_id_with_verb(client):
+    """provide a word id and expect a json response that contains the
+    word, a list of translations and the verb pronounces."""
+
+    response = client.get("/word/id/1/")
+    expected_response = {
+        'id': 1,
+        'text': 'Hablar',
+        'category_name': 'Verb',
+        'translations': [
+            {
+                'language_name': 'English', 'translation': 'to speak'
+            },
+            {
+                'language_name': 'English', 'translation': 'to talk'
+            },
+        ],
+        'verb_pronounces': {
+            'yo': 'Hablo',
+            'tu': 'Hablas',
+            'el_ella_usted': 'Habla',
+            'nosotros': 'hablamos',
+            'vosotros': 'hablais',
+            'ellos_ellas_ustedes': 'hablan'
+        }
+    }
+
+    data = response.json()
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {data}")
+    logger.debug(f"total records: {len(data)}")
+
+    assert response.status_code == 200
+    assert data == expected_response
+
+
+def test_get_word_by_id_without_verb(client):
+    """provide a word id and expect a json response that contains the
+    word, a list of translations and no verb."""
+
+    response = client.get("/word/id/2/")
+    expected_response = {
+        'id': 2,
+        'text': 'Jueves',
+        'category_name': 'Day',
+        'translations': [
+            {
+                'language_name': 'English', 'translation': 'Thursday'
+            }
+        ],
+        'verb_pronounces': {}
+    }
+
+    data = response.json()
+    logger.debug(f"response: {response}")
+    logger.debug(f"response content: {data}")
+    logger.debug(f"total records: {len(data)}")
+
+    assert response.status_code == 200
+    assert data == expected_response
 
 
 def test_patch_word_code_success(client):

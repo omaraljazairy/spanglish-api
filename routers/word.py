@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import List
 from fastapi import APIRouter, Depends, status
 from datamodels.schemas.word import (WordBase, WordInsert, WordUpdate,
-                                     WordWithTranslationResponse)
+                                     WordWithTranslationResponse, WordVerb)
 from datamodels.cruds import word
 from sqlalchemy.orm import Session
 from services.database import get_db
@@ -28,6 +28,13 @@ async def get_all(db: Session = Depends(get_db)):
     """takes no args and returns all words."""
 
     return word.get_all_words(db=db)
+
+
+@router.get("/id/{word_id:int}/",response_model=WordVerb)
+async def get_word_by_id(word_id: int, db: Session = Depends(get_db)):
+    """takes the word_id and returns a single word."""
+
+    return word.get_word_by_id(db=db, word_id=word_id)
 
 
 @router.get(

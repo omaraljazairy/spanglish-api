@@ -35,9 +35,9 @@ def test_get_all_categories_list_success(client):
 
 
 def test_patch_category_code_success(client):
-    """update category with id 2 with with name Season."""
+    """update category with id 4 with with name Season."""
 
-    response = client.patch("/category/update/id/2/", json={
+    response = client.patch("/category/update/id/4/", json={
         "name": "Season"
         }
     )
@@ -61,7 +61,7 @@ def test_patch_category_not_found_404(client):
 
 
 def test_delete_category_success(client):
-    """delete category with id 3 and expect statuscode 204."""
+    """delete category with id 5 and expect statuscode 204."""
 
     response = client.delete("/category/delete/id/5/")
     logger.debug(f"response from delete: {response}")

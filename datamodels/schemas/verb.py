@@ -38,6 +38,32 @@ class VerbBase(BaseModel):
         orm_mode = True
 
 
+class VerbWordResponse(BaseModel):
+    """A custom response for the word that have a verb category."""
+
+    yo: str = Field(
+        title="The verb for the subject pronouns yo",
+    )
+    tu: str = Field(
+        title="The verb for the subject pronouns tu",
+    )
+    el_ella_usted: str = Field(
+        title="The verb for the subject pronouns el_ella_usted",
+    )
+    nosotros: str = Field(
+        title="The verb for the subject pronouns nosotros",
+    )
+    vosotros: str = Field(
+        title="The verb for the subject pronouns vosotros",
+    )
+    ellos_ellas_ustedes: str = Field(
+        title="The verb for the subject pronouns ellos_ellas_ustedes",
+    )
+
+    class Config:
+        orm_mode = True
+
+
 class VerbInsert(BaseModel):
     """use for the insert operations"""
 
