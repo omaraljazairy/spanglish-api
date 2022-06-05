@@ -12,6 +12,11 @@ def get_all_quizquestions(db: Session):
 
     return db.query(QuizQuestion).all()
 
+def get_quizquestion_by_id(db: Session, quizquestion_id: int):
+    """returns a single quizquestion based on the quizquestion_id provided."""
+
+    return db.query(QuizQuestion).get(quizquestion_id)
+
 
 def create(db: Session, request: QuizQuestionInsert):
     """create a new QuizQuestion object. check first if the records don't exist."""

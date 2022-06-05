@@ -1,6 +1,7 @@
 from typing import List
 from fastapi import APIRouter, Depends, status
-from datamodels.schemas.quizquestion import QuizQuestionBase, QuizQuestionInsert, QuizQuestionUpdate
+from datamodels.schemas.quizquestion import (QuizQuestionBase, QuizQuestionInsert,
+                                             QuizQuestionUpdate, QuizQuestionDetails)
 from datamodels.cruds import quizquestion
 from sqlalchemy.orm import Session
 from services.database import get_db
@@ -12,7 +13,7 @@ router = APIRouter(prefix='/quizquestion', tags=['quizquestion'])
 
 @router.post(
     "/",
-    response_model=QuizQuestionBase,
+    response_model=QuizQuestionDetails,
     summary="Create new QuizQuestion",
     status_code=status.HTTP_201_CREATED
 )
@@ -28,7 +29,14 @@ async def get_all(db: Session = Depends(get_db)):
     return quizquestion.get_all_quizquestions(db=db)
 
 
-@router.patch("/update/id/{quizquestion_id:int}/", response_model=QuizQuestionBase)
+@router.get("/id/{quizquestion_id:int}/",response_model=QuizQuestionDetails)
+async def get_all(quizquestion_id: int, db: Session = Depends(get_db)):
+    """takes no args and returns all quizquestions."""
+
+    return quizquestion.get_quizquestion_by_id(quizquestion_id=quizquestion_id, db=db)
+
+
+@router.patch("/update/id/{quizquestion_id:int}/", response_model=QuizQuestionDetails)
 async def update_by_id(
     quizquestion_id: int,
     request: QuizQuestionUpdate,

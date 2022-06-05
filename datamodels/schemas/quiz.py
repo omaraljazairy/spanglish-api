@@ -25,6 +25,25 @@ class QuizBase(BaseModel):
         orm_mode = True
 
 
+class QuizCustomResponse(BaseModel):
+    """custom response for the quizquestions."""
+
+    id: int = Field(
+        title="The stored quiz Id in the backend."
+    )
+    title: str = Field(
+        title="The title of the quiz.",
+        max_length=30
+    )
+    active: bool = Field(
+        title="If True, the quiz is active, else False",
+        default=1
+    )
+
+    class Config:
+        orm_mode = True
+
+
 class QuizInsert(BaseModel):
     """use for the insert operations"""
 
