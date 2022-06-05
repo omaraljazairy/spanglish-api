@@ -12,3 +12,4 @@
 ### v0.1.2 	 Wed Jun 1 22:32:35 2022 +0200 - Omar Aljazairy: Word Translation Many-to-many created #30
 ### v0.1.3 	 Fri Jun 3 21:02:46 2022 +0200 - Omar Aljazairy: Word fetch with the option to exclude used words in a quiz result. get-random-words-not-in-the-quizresult-table-#20
 ### v0.1.4 	 Sun Jun 5 14:13:48 2022 +0200 - Omar Aljazairy: word has a verb_pronounces property #33
+### v0.1.5 	 Mon Jun 6 00:05:11 2022 +0200 - Omar Aljazairy: quizquestion has the full question details and quiz info in it also has the option to deactive it. #26
