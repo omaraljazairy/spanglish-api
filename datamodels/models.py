@@ -147,7 +147,7 @@ class QuizResult(Base):
     created = Column(DateTime, default=datetime.now())
 
     user = relationship("User", back_populates="quiz_result")
-    quiz_question = relationship("QuizQuestion", back_populates="quiz_result")
+    # quiz_question = relationship("QuizQuestion", back_populates="quiz_result")
 
 
 
@@ -158,6 +158,7 @@ class Quiz(Base):
     title = Column(String(30), unique=True, nullable=False)
     active = Column(Boolean, default=1, index=True)
     created = Column(DateTime, default=datetime.now())
+    quiz_questions = relationship("QuizQuestion", back_populates="quiz")
 
 
 class QuizQuestion(Base):
@@ -178,7 +179,16 @@ class QuizQuestion(Base):
         nullable=False,
         index=True)        
     question = Column(String(255), nullable=True)
+    active = Column(Boolean, default=1, index=True)
     created = Column(DateTime, default=datetime.now())
+    updated = Column(DateTime, default=datetime.now())
 
-    quiz_result = relationship("QuizResult", back_populates="quiz_question")
-    quiz_word = relationship("Word")
+    quiz = relationship("Quiz", back_populates="quiz_questions")
+    word = relationship("Word")
+
+    @property
+    def question_quiz(self):
+        """returns the quiz object that belongs to the question."""
+
+        return self.quiz
+

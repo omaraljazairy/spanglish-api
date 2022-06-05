@@ -338,7 +338,8 @@ def created_quizquestion(db):
         id=1,
         quiz_id=1,
         word_id=1,
-        question='what is the meaning of'
+        question='what is the meaning of',
+        active=1
     )
     session.add(question_1)
     session.commit()
@@ -347,7 +348,8 @@ def created_quizquestion(db):
         id=2,
         quiz_id=2,
         word_id=2,
-        question='what is the meaning of'
+        question='what is the meaning of',
+        active=1
     )
     session.add(question_2)
     session.commit()
@@ -356,7 +358,8 @@ def created_quizquestion(db):
         id=3,
         quiz_id=3,
         word_id=3,
-        question='what does this word mean'
+        question='what does this word mean',
+        active=1
     )
     session.add(question_3)
     session.commit()
@@ -365,7 +368,8 @@ def created_quizquestion(db):
         id=4,
         quiz_id=4,
         word_id=1,
-        question='what does this word mean'
+        question='what does this word mean',
+        active=1
     )
     session.add(question_4)
     session.commit()
@@ -374,7 +378,8 @@ def created_quizquestion(db):
         id=5,
         quiz_id=5,
         word_id=5,
-        question='what does this word mean'
+        question='what does this word mean',
+        active=1
     )
     session.add(question_5)
     session.commit()
@@ -383,7 +388,8 @@ def created_quizquestion(db):
         id=6,
         quiz_id=2,
         word_id=4,
-        question='what does this word mean'
+        question='what does this word mean',
+        active=1
     )
     session.add(question_6)
     session.commit()

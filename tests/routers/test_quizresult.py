@@ -21,7 +21,7 @@ def test_post_quizresult_non_existed_question_404(client):
     """post a non existing quizquestion, should get back 404 error"""
 
     response = client.post("/quizresult/", json={
-        "quizquestion_id": 15,
+        "quizquestion_id": 1015,
         "attempts": 6,
         "user_id": 2
         })
