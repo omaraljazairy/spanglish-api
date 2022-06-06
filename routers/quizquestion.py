@@ -1,7 +1,8 @@
 from typing import List
 from fastapi import APIRouter, Depends, status
 from datamodels.schemas.quizquestion import (QuizQuestionBase, QuizQuestionInsert,
-                                             QuizQuestionUpdate, QuizQuestionDetails)
+                                             QuizQuestionUpdate, QuizQuestionDetails,
+                                             QuizQuestionSummary)
 from datamodels.cruds import quizquestion
 from sqlalchemy.orm import Session
 from services.database import get_db
@@ -22,7 +23,7 @@ async def add_quizquestion(
     db: Session = Depends(get_db)):
     return quizquestion.create(db=db, request=request)
 
-@router.get("/all/",response_model=List[QuizQuestionBase])
+@router.get("/all/",response_model=List[QuizQuestionSummary])
 async def get_all(db: Session = Depends(get_db)):
     """takes no args and returns all quizquestions."""
 

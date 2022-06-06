@@ -192,3 +192,15 @@ class QuizQuestion(Base):
 
         return self.quiz
 
+    @property
+    def word_text(self) -> str:
+        """returns the text of the word only."""
+
+        return self.word.text
+
+    @property
+    def quiz_title(self) -> str:
+        """returns the title of the quiz only."""
+
+        return self.question_quiz.title
+
