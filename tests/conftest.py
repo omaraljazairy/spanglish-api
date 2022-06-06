@@ -302,25 +302,28 @@ def created_quiz(db):
 
     session = db
 
-    verbs = Quiz(id=1, title='Verbs', active=1)
+    verbs = Quiz(
+        id=1,
+        title='Verbs',
+        active=1,
+        created=datetime(
+            year=2022, month=6, day=1,
+            hour=00, minute=00, second=00
+        )
+    )
     session.add(verbs)
-    session.commit()
 
     days = Quiz(id=2, title='Days', active=1)
     session.add(days)
-    session.commit()
 
     places = Quiz(id=3, title='Places', active=1)
     session.add(places)
-    session.commit()
 
     adjectives = Quiz(id=4, title='Adjectives', active=0)
     session.add(adjectives)
-    session.commit()
 
     test_1 = Quiz(id=5, title='Test_1', active=1)
     session.add(test_1)
-    session.commit()
 
     test_2 = Quiz(id=6, title='Test_2', active=1)
     session.add(test_2)
@@ -348,7 +351,6 @@ def created_quizquestion(db):
             hour=00, minute=00, second=00)
     )
     session.add(question_1)
-    session.commit()
 
     question_2 = QuizQuestion(
         id=2,
@@ -358,7 +360,6 @@ def created_quizquestion(db):
         active=1
     )
     session.add(question_2)
-    session.commit()
 
     question_3 = QuizQuestion(
         id=3,
@@ -368,7 +369,6 @@ def created_quizquestion(db):
         active=1
     )
     session.add(question_3)
-    session.commit()
 
     question_4 = QuizQuestion(
         id=4,
@@ -378,7 +378,6 @@ def created_quizquestion(db):
         active=1
     )
     session.add(question_4)
-    session.commit()
 
     question_5 = QuizQuestion(
         id=5,
@@ -388,7 +387,6 @@ def created_quizquestion(db):
         active=1
     )
     session.add(question_5)
-    session.commit()
 
     question_6 = QuizQuestion(
         id=6,

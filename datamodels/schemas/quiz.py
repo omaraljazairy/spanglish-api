@@ -28,17 +28,33 @@ class QuizBase(BaseModel):
 class QuizCustomResponse(BaseModel):
     """custom response for the quizquestions."""
 
-    id: int = Field(
-        title="The stored quiz Id in the backend."
-    )
-    title: str = Field(
-        title="The title of the quiz.",
-        max_length=30
-    )
-    active: bool = Field(
-        title="If True, the quiz is active, else False",
-        default=1
-    )
+    id: int
+    title: str
+    active: bool
+
+    class Config:
+        orm_mode = True
+
+
+class QuizQuestionTitleList(BaseModel):
+    """returns the titles of the quizquestions and the word."""
+    
+    question: str
+    word_text: str
+    active: bool
+
+    class Config:
+        orm_mode = True
+
+
+class QuizSummary(BaseModel):
+    """custom response for the quizquestions."""
+
+    id: int
+    title: str
+    active: bool
+    created: datetime
+    questions: List[QuizQuestionTitleList]
 
     class Config:
         orm_mode = True

@@ -45,14 +45,31 @@ def test_post_quiz_exists_409(client):
 
 
 def test_get_all_quizs_list_success(client):
+    """expect a list of quizzes objects. the first object should be the
+    same as the expected object."""
 
     response = client.get("/quiz/all/")
     data = response.json()
+    expected = {
+        "id": 1,
+        "title": "Verbs",
+        "active": True,
+        "created": "2022-06-01T00:00:00",
+        "questions": [
+            {
+                'question': 'what is the meaning of',
+                'word_text': 'Hablar',
+                'active': True
+            }
+        ]
+    }
+
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {data}")
 
     assert response.status_code == 200
     assert len(data) >= 2
+    assert data[0] == expected
 
 
 def test_patch_quiz_title_success(client):

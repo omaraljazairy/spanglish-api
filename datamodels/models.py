@@ -160,6 +160,12 @@ class Quiz(Base):
     created = Column(DateTime, default=datetime.now())
     quiz_questions = relationship("QuizQuestion", back_populates="quiz")
 
+    @property
+    def questions(self):
+        """return the questions and the words that belongs to the quiz."""
+
+        return self.quiz_questions
+
 
 class QuizQuestion(Base):
     __tablename__ = "QuizQuestion"
