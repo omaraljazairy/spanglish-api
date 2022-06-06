@@ -49,12 +49,31 @@ class QuizQuestionDetails(BaseModel):
         orm_mode = True
 
 
+class QuizQuestionSummary(BaseModel):
+    """ response model used for the api to give a summary about quizquestion list."""
+    
+    id: int
+    word_text: str 
+    quiz_title: str
+    question: str
+    active: bool
+    created: datetime
+    updated: datetime
+    
+    class Config:
+        orm_mode = True
+
+
 class QuizQuestionInsert(BaseModel):
     """use for the insert operations"""
 
     word_id: int
     quiz_id: int
-    question: Optional[str]
+    question: str = Field(
+        title="The question that can be presented for the word_id.",
+        max_length=255,
+        default='What is the meaning of'
+    )
     active: bool = True
 
 

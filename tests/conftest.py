@@ -339,7 +339,13 @@ def created_quizquestion(db):
         quiz_id=1,
         word_id=1,
         question='what is the meaning of',
-        active=1
+        active=1,
+        created=datetime(
+            year=2022, month=1, day=1,
+            hour=00, minute=00, second=00),
+        updated=datetime(
+            year=2022, month=1, day=1,
+            hour=00, minute=00, second=00)
     )
     session.add(question_1)
     session.commit()

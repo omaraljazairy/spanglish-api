@@ -51,14 +51,28 @@ def test_post_quizquestion_exists_409(client):
 
 
 def test_get_all_quizquestions_list_success(client):
+    """expect a list of more than 2 objects. take the first one and compare
+    it with an expected object."""
 
     response = client.get("/quizquestion/all/")
     data = response.json()
+
+    expected = {
+        'id': 1,
+        'word_text': 'Hablar',
+        'quiz_title': 'Verbs',
+        'question': 'what is the meaning of',
+        'active': True,
+        'created': '2022-01-01T00:00:00',
+        'updated': '2022-01-01T00:00:00'
+    }
+
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {data}")
 
     assert response.status_code == 200
-    assert len(data) >= 2
+    assert len(data) > 2
+    assert data[0] == expected
 
 
 def test_get_one_quizquestion_success(client):
