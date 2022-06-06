@@ -13,3 +13,4 @@
 ### v0.1.3 	 Fri Jun 3 21:02:46 2022 +0200 - Omar Aljazairy: Word fetch with the option to exclude used words in a quiz result. get-random-words-not-in-the-quizresult-table-#20
 ### v0.1.4 	 Sun Jun 5 14:13:48 2022 +0200 - Omar Aljazairy: word has a verb_pronounces property #33
 ### v0.1.5 	 Mon Jun 6 00:05:11 2022 +0200 - Omar Aljazairy: quizquestion has the full question details and quiz info in it also has the option to deactive it. #26
+### v0.1.6 	 Mon Jun 6 16:29:34 2022 +0200 - Omar Aljazairy: the question list has the word text and quiz title instead of their ids only #38
