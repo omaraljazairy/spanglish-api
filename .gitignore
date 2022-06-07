@@ -133,3 +133,6 @@ logs/
 
 # db files
 *.db
+
+# visual code files
+.vscode/
