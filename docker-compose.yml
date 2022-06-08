@@ -53,9 +53,43 @@ services:
       - "8081:80"
     depends_on:
       - mysql
+  postgresql:
+    container_name: postgresql-spanglish-api
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - type: volume
+        source: db-data
+        target: /var/lib/postgresql/data
+    networks:
+      network-spanglish-api:
+        ipv4_address: ${POSTGRES_HOST}
+  pgadmin:
+    container_name: pgadmin-spanglish-api
+    image: dpage/pgadmin4:latest
+    restart: always
+    networks:
+      - network-spanglish-api
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    links:
+      - "postgresql:pgsql-server"      
 volumes:
     mysql-data:
-    db-data:
+    db-data: {}
+    pgadmin-data: {}    
 networks:
     network-spanglish-api:
       ipam:
