@@ -16,3 +16,4 @@
 ### v0.1.6 	 Mon Jun 6 16:29:34 2022 +0200 - Omar Aljazairy: the question list has the word text and quiz title instead of their ids only #38
 ### v0.1.7 	 Mon Jun 6 21:34:01 2022 +0200 - Omar Aljazairy: quiz list shows the questions and the word #40
 ### v0.1.8 	 Wed Jun 8 22:43:56 2022 +0200 - Omar Aljazairy: added PostgreSQL and PGAdmin containers #27
+### v0.1.9 	 Thu Jun 9 21:28:46 2022 +0200 - Omar Aljazairy: Postgresql connected with tests. decided not to switch now. first work on the front end #28
