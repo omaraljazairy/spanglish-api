@@ -1,5 +1,5 @@
 import logging
-from sqlalchemy import (Column, ForeignKey, Integer, String, DateTime,
+from sqlalchemy import (Column, ForeignKey, Identity, Integer, String, DateTime,
                         UniqueConstraint, Boolean, Table)
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -26,7 +26,7 @@ class User(Base):
 class Language(Base):
     __tablename__ = "Language"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     name = Column(String(15), unique=True, nullable=False)
     code = Column(String(2), index=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
@@ -36,7 +36,7 @@ class Language(Base):
 class Category(Base):
     __tablename__ = "Category"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     name = Column(String(15), unique=True, nullable=False)
     created = Column(DateTime, default=datetime.now())
 
@@ -52,7 +52,7 @@ word_translation = Table(
 class Word(Base):
     __tablename__ = "Word"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     text = Column(String(255), unique=True, nullable=False)
     category_id = Column(Integer, ForeignKey(
         'Category.id',
@@ -91,7 +91,7 @@ class Word(Base):
 class Verb(Base):
     __tablename__ = "Verb"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     word_id = Column(Integer, ForeignKey(
         'Word.id',
         ondelete='RESTRICT',
@@ -110,7 +110,7 @@ class Verb(Base):
 class Translation(Base):
     __tablename__ = "Translation"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     language_id = Column(Integer, ForeignKey(
         'Language.id',
         ondelete='RESTRICT',
@@ -132,7 +132,7 @@ class Translation(Base):
 class QuizResult(Base):
     __tablename__ = "QuizResult"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     quizquestion_id = Column(Integer, ForeignKey(
         'QuizQuestion.id',
         ondelete='RESTRICT',
@@ -154,7 +154,7 @@ class QuizResult(Base):
 class Quiz(Base):
     __tablename__ = "Quiz"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True), primary_key=True)
     title = Column(String(30), unique=True, nullable=False)
     active = Column(Boolean, default=1, index=True)
     created = Column(DateTime, default=datetime.now())
@@ -171,7 +171,7 @@ class QuizQuestion(Base):
     __tablename__ = "QuizQuestion"
     __table_args__ = (UniqueConstraint('word_id', 'quiz_id', name="unique_word_quiz"),)
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, Identity(start=1, cycle=True),primary_key=True)
     word_id = Column(Integer, ForeignKey(
         'Word.id',
         ondelete='RESTRICT',
