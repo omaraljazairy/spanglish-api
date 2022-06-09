@@ -19,7 +19,14 @@ logger = logging.getLogger('fixtures')
 DBNAME = "test"
 DB_HOST = os.getenv("DB_HOST", False)
 MYSQL_URL = f"mysql://{DBNAME}:@{DB_HOST}/{DBNAME}"
+
+PG_USER = 'test'
+PG_PASSWORD = 'test'
+PG_HOST = os.getenv("POSTGRES_HOST", None)
+POSTGRESQL_URI = f"postgresql://{PG_USER}:{PG_PASSWORD}@{PG_HOST}/test"
 # TEST_SQLALCHEMY_DATABASE_URL = "sqlite:///./sql_test_app.db"
+logger.debug(f"POSTGRES_HOST => {PG_HOST}")
+logger.debug(f"POSTGRESQL_URI => {POSTGRESQL_URI}")
 
 
 @pytest.fixture(scope="session")
