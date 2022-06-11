@@ -8,7 +8,8 @@ def test_post_quiz_body_success_201(client):
 
     response = client.post("/quiz/", json={
         "title": "Body",
-        "active": 1})
+        "active": 1,
+        "user_id": 1})
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {response.content}")
 
@@ -21,7 +22,8 @@ def test_post_quiz_without_active_success_201(client):
     """
 
     response = client.post("/quiz/", json={
-        "title": "Something"})
+        "title": "Something",
+        "user_id": 1})
 
     response_data = response.json()
     logger.debug(f"response: {response}")
@@ -36,7 +38,8 @@ def test_post_quiz_exists_409(client):
 
     response = client.post("/quiz/", json={
         "title": "Days",
-        "active": 1
+        "active": 1,
+        "user_id": 1
         })
     logger.debug(f"response: {response}")
     logger.debug(f"response content: {response.content}")
