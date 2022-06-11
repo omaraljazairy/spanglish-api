@@ -10,6 +10,7 @@ def test_post_word_calle_success_201(client):
     response = client.post("/word/", json={
         "text": "Calle",
         "category_id": 2,
+        "user_id": 2,
         "translations": [
             {
                 'language_id': 1,
@@ -28,6 +29,7 @@ def test_post_word_exists_409(client):
     response = client.post("/word/", json={
         "text": "Hablar",
         "category_id": 1,
+        "user_id": 1,
         "translations": [
             {
                 "language_id": 1,
