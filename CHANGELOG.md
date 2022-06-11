@@ -18,3 +18,4 @@
 ### v0.1.8 	 Wed Jun 8 22:43:56 2022 +0200 - Omar Aljazairy: added PostgreSQL and PGAdmin containers #27
 ### v0.1.9 	 Thu Jun 9 21:28:46 2022 +0200 - Omar Aljazairy: Postgresql connected with tests. decided not to switch now. first work on the front end #28
 ### v0.1.10 	 Sat Jun 11 21:05:16 2022 +0200 - Omar Aljazairy: Add user as foreignkey to the word #47
+### v0.1.11 	 Sat Jun 11 21:20:47 2022 +0200 - Omar Aljazairy: Quiz added user_id to it #50
