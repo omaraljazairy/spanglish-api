@@ -319,6 +319,7 @@ def created_quiz(db):
         id=1,
         title='Verbs',
         active=1,
+        user_id=1,
         created=datetime(
             year=2022, month=6, day=1,
             hour=00, minute=00, second=00
@@ -326,19 +327,19 @@ def created_quiz(db):
     )
     session.add(verbs)
 
-    days = Quiz(id=2, title='Days', active=1)
+    days = Quiz(id=2, title='Days', user_id=2, active=1)
     session.add(days)
 
-    places = Quiz(id=3, title='Places', active=1)
+    places = Quiz(id=3, title='Places', user_id=1, active=1)
     session.add(places)
 
-    adjectives = Quiz(id=4, title='Adjectives', active=0)
+    adjectives = Quiz(id=4, title='Adjectives', user_id=1, active=0)
     session.add(adjectives)
 
-    test_1 = Quiz(id=5, title='Test_1', active=1)
+    test_1 = Quiz(id=5, title='Test_1', user_id=1, active=1)
     session.add(test_1)
 
-    test_2 = Quiz(id=6, title='Test_2', active=1)
+    test_2 = Quiz(id=6, title='Test_2', user_id=1, active=1)
     session.add(test_2)
     session.commit()
 

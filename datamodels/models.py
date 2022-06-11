@@ -159,6 +159,10 @@ class Quiz(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(30), unique=True, nullable=False)
     active = Column(Boolean, default=1, index=True)
+    user_id = Column(Integer, ForeignKey(
+        'User.id',
+        ondelete='RESTRICT',
+        onupdate='CASCADE'))
     created = Column(DateTime, default=datetime.now())
     quiz_questions = relationship("QuizQuestion", back_populates="quiz")
 

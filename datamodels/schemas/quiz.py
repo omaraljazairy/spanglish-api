@@ -71,6 +71,9 @@ class QuizInsert(BaseModel):
         title="If 1, the quiz is active, else 0 not active. default is 1",
         default=1
     )
+    user_id: int = Field(
+        title="The user_id",
+    )
 
 
 class QuizUpdate(BaseModel):
