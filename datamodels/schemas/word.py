@@ -60,6 +60,9 @@ class WordInsert(BaseModel):
     category_id: int = Field(
         title="The category_id",
     )
+    user_id: int = Field(
+        title="The user_id",
+    )
 
     translations: List[TranslationInsert]
 

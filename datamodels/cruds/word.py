@@ -83,6 +83,7 @@ def create(db: Session, request: WordInsert):
     db_word = Word(
         text=request.text,
         category_id=request.category_id,
+        user_id=request.user_id,
         translations=[
             Translation(
                 language_id=translate.language_id,
