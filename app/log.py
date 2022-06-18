@@ -1,4 +1,17 @@
 from app.config import get_settings
+import os
+
+# create a logs folder if it doesn't exist
+curdir = os.getcwd()
+print(f"CURDIR => {curdir}")
+
+logs_path = f'{curdir}/logs'
+print(f"LOGS_DIR => {logs_path}")
+
+if not os.path.exists(logs_path):
+    is_created = os.makedirs(logs_path)
+    print(f"logs dir is created => {is_created}")
+
 
 settings = get_settings()
 LOGLEVEL = settings.LOG_LEVEL

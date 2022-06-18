@@ -2,7 +2,7 @@
 --------------
 This API is used as a backend system where Spanish words or sentences can be added and translated. It supports creating quizzes with quiz questions existing from the Spanish words. The results of the quizzes can be added here and fetched. 
 Any interface can use it as a backend.
-This api is built using Python 3.9 and FastAPI with PostgreSQL as a database.
+This api is built using Python 3.9 and FastAPI with MariaDB as a database.
 
 ## Usage & endpoints
 --------------------
@@ -107,7 +107,15 @@ classDiagram
  DB_PASSWORD=pass
  DB_HOST=171.28.0.2
  DB_PORT=3306
- DB_DATABASE=Language
+ DB_DATABASE=Spanglish
+ POSTGRES_USER=root
+ POSTGRES_PASSWORD=dockerpass
+ POSTGRES_HOST=171.28.0.3 
+ POSTGRES_PORT=5432
+ POSTGRES_DB=Language
+ PGADMIN_DEFAULT_EMAIL=omar@fedal.nl
+ PGADMIN_DEFAULT_PASSWORD=mydockeradmin
+ PGADMIN_LISTEN_PORT=80
  ENVIRONMENT=dev
 ```
 2. Place the ***.env*** file in the root of the project. the same place where the Dockerfile and docker-compose.yml are placed.
@@ -116,6 +124,8 @@ classDiagram
 5. To enter the container, execute the command **make bash** .
 6. To access the API and see the docs, go to **http://0.0.0.0:8005/redoc** or **http://0.0.0.0:8005/docs** .
 7. To run unittests, execute the command **make test**
+
+*note: Both mariadb & postgresql containers are added and start. But Maria DB is now used as default. The reason for having both databases is to test the performance during the tests stages. At the end, only one of them will be used.
 
 ## Authors
 Omar Aljazairy: omar@fedal.nl
