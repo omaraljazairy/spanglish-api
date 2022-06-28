@@ -1,5 +1,7 @@
 import logging
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+# from starlette.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from services.database import engine
 from datamodels import models
@@ -55,3 +57,13 @@ async def main():
     return {
         "foo": "bar",
     }
+
+# CORS
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
