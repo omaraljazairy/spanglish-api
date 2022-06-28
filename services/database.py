@@ -20,8 +20,9 @@ SQLALCHEMY_DATABASE_URL = MYSQL_URL if DB_HOST else SQLITE_URL
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={}, echo=True
+    SQLALCHEMY_DATABASE_URL, connect_args={}
 )
+# add echo=True to the create_engine to echo the db queries
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
