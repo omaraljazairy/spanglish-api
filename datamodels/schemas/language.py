@@ -28,12 +28,15 @@ class LanguageInsert(BaseModel):
 
     name: str = Field(
         title="The of the language. ex: `English`.",
-        max_length=15
+        max_length=15,
+        min_length=5
     )
     code: str = Field(
         title="The ISO 639-2 language code. ex: `EN`",
-        max_length=2
+        max_length=2,
+        min_length=2
     )
+
 
 class LanguageUpdate(BaseModel):
     """use for the insert and update operations"""
