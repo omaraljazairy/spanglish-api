@@ -21,3 +21,4 @@
 ### v0.1.11 	 Sat Jun 11 21:20:47 2022 +0200 - Omar Aljazairy: Quiz added user_id to it #50
 ### v0.1.12 	 Sat Jun 18 13:55:36 2022 +0200 - Omar Aljazairy: added initializers for the database
 ### v0.1.13 	 Tue Jun 28 20:28:00 2022 +0200 - Omar Aljazairy: CORS #57
+### v0.1.14 	 Tue Jul 5 10:29:29 2022 +0200 - Omar Aljazairy: min_length added #59
