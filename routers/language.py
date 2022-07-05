@@ -19,6 +19,7 @@ router = APIRouter(prefix='/language', tags=['language'])
 async def add_language(
     request: LanguageInsert, 
     db: Session = Depends(get_db)):
+
     return language.create(db=db, request=request)
 
 @router.get("/all/",response_model=List[LanguageBase])
