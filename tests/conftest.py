@@ -19,6 +19,7 @@ logger = logging.getLogger('fixtures')
 DBNAME = "test"
 DB_HOST = os.getenv("DB_HOST", False)
 MYSQL_URL = f"mysql://{DBNAME}:@{DB_HOST}/{DBNAME}"
+SQLITE_URL = "sqlite:///./sql_test_app.db"
 
 PG_USER = 'test'
 PG_PASSWORD = 'test'

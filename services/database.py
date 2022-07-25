@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DB_HOST = os.getenv("DB_HOST", None)
+DB_HOST = None #os.getenv("DB_HOST", None)
 DB_USER = os.getenv("DB_USER", None)
 DB_PASSWORD = os.getenv("DB_PASSWORD", None)
 POSTGRES_USER = os.getenv("POSTGRES_USER", None)
@@ -15,12 +15,14 @@ POSTGRES_DB = os.getenv("POSTGRES_DB", None)
 DBNAME = "Spanglish"
 MYSQL_URL = f"mysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DBNAME}"
 POSTGRESQL_URI = f"postgresql://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}/{POSTGRES_DB}"
-SQLITE_URL = "sqlite:///./sql_test_app.db"
+SQLITE_URL = "sqlite:///./sql_app.db"
 SQLALCHEMY_DATABASE_URL = MYSQL_URL if DB_HOST else SQLITE_URL
 
 
 engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={}
+    SQLALCHEMY_DATABASE_URL, connect_args={
+        "check_same_thread": False
+    }
 )
 # add echo=True to the create_engine to echo the db queries
 
