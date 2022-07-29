@@ -23,7 +23,7 @@ async def add_word(
     db: Session = Depends(get_db)):
     return word.create(db=db, request=request)
 
-@router.get("/all/",response_model=List[WordBase])
+@router.get("/all/",response_model=List[WordWithTranslationResponse])
 async def get_all(db: Session = Depends(get_db)):
     """takes no args and returns all words."""
 
