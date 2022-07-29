@@ -22,3 +22,4 @@
 ### v0.1.12 	 Sat Jun 18 13:55:36 2022 +0200 - Omar Aljazairy: added initializers for the database
 ### v0.1.13 	 Tue Jun 28 20:28:00 2022 +0200 - Omar Aljazairy: CORS #57
 ### v0.1.14 	 Tue Jul 5 10:29:29 2022 +0200 - Omar Aljazairy: min_length added #59
+### v0.1.15 	 Fri Jul 29 22:41:03 2022 +0200 - Omar Aljazairy: categoryname with words/all
